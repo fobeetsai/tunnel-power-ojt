@@ -1,0 +1,1109 @@
+<!DOCTYPE html>
+<html lang="ja-JP">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>トンネル電気設備・台電容量交渉 OJT 双方向実務教材 (中日対訳・上日下中)</title>
+  <style>
+    :root {
+      --primary: #0f2b48;
+      --secondary: #1a568c;
+      --accent: #d97706;
+      --accent-light: #fef3c7;
+      --bg: #f8fafc;
+      --card-bg: #ffffff;
+      --jp-text: #0f172a;
+      --zh-text: #1e3a8a;
+      --kana: #ea580c;
+      --pinyin: #7c3aed;
+      --border: #cbd5e1;
+      --success: #16a34a;
+      --warning: #ca8a04;
+      --danger: #dc2626;
+      --radius: 10px;
+      --shadow: 0 4px 6px -1px rgba(0,0,0,0.07), 0 2px 4px -2px rgba(0,0,0,0.05);
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Hiragino Kaku Gothic ProN", "Yu Gothic", "Noto Sans TC", sans-serif; background: var(--bg); color: #334155; line-height: 1.65; }
+
+    /* Ruby (Furigana) Styling */
+    ruby { ruby-align: center; }
+    rt { font-size: 0.62em; color: var(--kana); font-weight: 500; user-select: none; }
+    .hide-furigana rt, .hide-furigana .bi-kana, .hide-furigana .td-kana { display: none !important; }
+    .hide-pinyin .bi-pinyin, .hide-pinyin .td-pinyin { display: none !important; }
+    .cloze-active .cloze-target { background: #1e293b; color: #1e293b; border-radius: 4px; padding: 0 4px; cursor: pointer; transition: all 0.2s; }
+    .cloze-active .cloze-target.revealed { background: #fef3c7; color: #92400e; }
+
+    /* Header */
+    header { background: linear-gradient(135deg, #0b1e36 0%, #1e3a8a 100%); color: white; padding: 1.1rem 1.75rem; position: sticky; top: 0; z-index: 1000; box-shadow: 0 4px 12px rgba(0,0,0,0.18); }
+    .header-content { max-width: 1320px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.85rem; }
+    .logo-jp { font-size: 1.25rem; font-weight: 800; letter-spacing: -0.01em; display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap; }
+    .logo-zh { font-size: 0.92rem; color: #cbd5e1; font-weight: 600; margin-top: 2px; }
+    .badge-tag { background: var(--accent); color: #000; font-size: 0.72rem; font-weight: 800; padding: 2px 8px; border-radius: 4px; }
+
+    /* Controls & TTS Bar */
+    .view-toggles { display: flex; gap: 0.45rem; flex-wrap: wrap; align-items: center; }
+    .toggle-btn { background: rgba(255,255,255,0.14); border: 1px solid rgba(255,255,255,0.28); color: white; padding: 0.38rem 0.75rem; border-radius: 6px; cursor: pointer; font-size: 0.8rem; font-weight: 600; transition: all 0.2s; display: flex; align-items: center; gap: 4px; }
+    .toggle-btn:hover { background: rgba(255,255,255,0.24); }
+    .toggle-btn.active { background: var(--accent); color: #0f172a; border-color: var(--accent); }
+
+    .tts-bar { background: #0f172a; color: #e2e8f0; padding: 0.45rem 1.75rem; border-bottom: 1px solid rgba(255,255,255,0.1); font-size: 0.8rem; }
+    .tts-inner { max-width: 1320px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 0.75rem; }
+    .tts-controls { display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap; }
+    .tts-btn { background: #1e293b; border: 1px solid #475569; color: #f8fafc; padding: 0.25rem 0.65rem; border-radius: 5px; cursor: pointer; font-size: 0.78rem; font-weight: 600; }
+    .tts-btn:hover { background: var(--secondary); border-color: var(--secondary); }
+    .tts-speed { display: flex; align-items: center; gap: 0.35rem; }
+    .tts-status { color: #93c5fd; font-size: 0.76rem; }
+
+    /* Navigation Bar */
+    .nav-bar { background: #081627; border-bottom: 1px solid rgba(255,255,255,0.1); }
+    .nav-tabs { display: flex; gap: 0.35rem; overflow-x: auto; padding: 0.55rem 1.75rem; max-width: 1320px; margin: 0 auto; scrollbar-width: none; }
+    .nav-tabs::-webkit-scrollbar { display: none; }
+    .tab-btn { background: transparent; border: 1px solid transparent; color: #94a3b8; padding: 0.48rem 0.9rem; border-radius: 6px; cursor: pointer; font-size: 0.83rem; font-weight: 700; white-space: nowrap; transition: all 0.2s; text-align: left; }
+    .tab-btn:hover { color: white; background: rgba(255,255,255,0.08); }
+    .tab-btn.active { background: var(--secondary); color: white; border-color: rgba(255,255,255,0.25); }
+    .tab-sub { font-size: 0.73rem; opacity: 0.88; font-weight: 500; display: block; }
+
+    /* Main Container */
+    main { max-width: 1320px; margin: 1.75rem auto; padding: 0 1.25rem; }
+    .tab-content { display: none; animation: fadeIn 0.25s ease-in-out; }
+    .tab-content.active { display: block; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
+
+    /* Cards */
+    .card { background: var(--card-bg); border-radius: var(--radius); padding: 1.65rem; box-shadow: var(--shadow); margin-bottom: 1.75rem; border: 1px solid var(--border); }
+    .card-header-block { border-bottom: 2px solid #e2e8f0; padding-bottom: 0.75rem; margin-bottom: 1.35rem; }
+    .card-title-jp { font-size: 1.25rem; font-weight: 800; color: var(--primary); display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap; }
+    .card-title-zh { font-size: 1rem; font-weight: 700; color: var(--secondary); margin-top: 3px; }
+
+    /* Core Bilingual Interlinear Block (上日 下中) */
+    .bi-block { background: #f8fafc; border-left: 4px solid var(--secondary); border-radius: 6px; padding: 1rem 1.2rem; margin-bottom: 1.15rem; position: relative; }
+    .bi-block.warn { background: #fffbeb; border-left-color: var(--accent); }
+    .bi-block.danger { background: #fef2f2; border-left-color: var(--danger); }
+    .bi-block.success { background: #f0fdf4; border-left-color: var(--success); }
+    .bi-jp { font-size: 1.03rem; font-weight: 700; color: var(--jp-text); margin-bottom: 0.25rem; padding-right: 2.2rem; }
+    .bi-kana { font-size: 0.82rem; color: var(--kana); font-weight: 500; margin-bottom: 0.4rem; }
+    .bi-zh { font-size: 0.96rem; font-weight: 600; color: var(--zh-text); margin-bottom: 0.2rem; border-top: 1px dashed #cbd5e1; padding-top: 0.45rem; }
+    .bi-pinyin { font-size: 0.8rem; color: var(--pinyin); font-weight: 500; }
+    .bi-audio-group { position: absolute; top: 0.75rem; right: 0.75rem; display: flex; gap: 4px; }
+
+    /* Tables */
+    .table-wrap { overflow-x: auto; margin: 1rem 0; }
+    .styled-table { width: 100%; border-collapse: collapse; font-size: 0.88rem; min-width: 680px; }
+    .styled-table th { background: #f1f5f9; text-align: left; padding: 0.8rem 0.9rem; border-bottom: 2px solid var(--border); }
+    .styled-table td { padding: 0.8rem 0.9rem; border-bottom: 1px solid var(--border); vertical-align: top; }
+    .styled-table tr:hover td { background: #f8fafc; }
+    .th-jp { font-weight: 800; color: var(--primary); font-size: 0.92rem; }
+    .th-zh { font-weight: 600; color: var(--secondary); font-size: 0.8rem; }
+    .td-jp { font-weight: 700; color: var(--jp-text); margin-bottom: 0.2rem; }
+    .td-kana { font-size: 0.78rem; color: var(--kana); margin-bottom: 0.3rem; }
+    .td-zh { font-weight: 600; color: var(--zh-text); font-size: 0.86rem; }
+    .td-pinyin { font-size: 0.76rem; color: var(--pinyin); }
+
+    /* Diagrams */
+    .diagram-container { background: #ffffff; border: 1px solid var(--border); border-radius: var(--radius); padding: 1.25rem; margin: 1.25rem 0; text-align: center; overflow-x: auto; }
+    .diagram-caption-jp { font-size: 0.94rem; font-weight: 800; color: var(--primary); margin-top: 0.75rem; }
+    .diagram-caption-zh { font-size: 0.84rem; font-weight: 600; color: var(--secondary); }
+
+    /* Badges */
+    .badge { display: inline-block; padding: 2px 8px; border-radius: 4px; font-size: 0.72rem; font-weight: 700; white-space: nowrap; }
+    .badge-official { background: #e0e7ff; color: #3730a3; }
+    .badge-industry { background: #dbeafe; color: #1e40af; }
+    .badge-company { background: #fef3c7; color: #92400e; }
+    .badge-slang { background: #fee2e2; color: #991b1b; }
+
+    /* Grids */
+    .grid-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(360px, 1fr)); gap: 1.25rem; margin: 1rem 0; }
+    .grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1.1rem; margin: 1rem 0; }
+
+    /* Interactive Checklist */
+    .check-item { display: flex; align-items: flex-start; gap: 0.85rem; padding: 0.85rem 1rem; border-bottom: 1px solid var(--border); }
+    .check-item:last-child { border-bottom: none; }
+    .check-box-ui { width: 22px; height: 22px; border-radius: 5px; border: 2px solid var(--secondary); margin-top: 3px; flex-shrink: 0; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all 0.15s; }
+    .check-box-ui.checked { background: var(--secondary); color: white; }
+    .check-box-ui.checked::after { content: "✓"; font-size: 14px; font-weight: bold; }
+
+    /* Dialogue Thread */
+    .dialogue-thread { display: flex; flex-direction: column; gap: 1.1rem; margin: 1rem 0; }
+    .chat-bubble { padding: 1.15rem; border-radius: 12px; max-width: 92%; position: relative; }
+    .bubble-taipower { background: #fff7ed; border: 1px solid #fed7aa; align-self: flex-start; }
+    .bubble-contractor { background: #eff6ff; border: 1px solid #bfdbfe; align-self: flex-end; }
+    .bubble-manager { background: #fefce8; border: 1px solid #fef08a; align-self: flex-start; }
+    .bubble-engineer { background: #f0fdf4; border: 1px solid #bbf7d0; align-self: flex-end; }
+    .speaker-meta { font-size: 0.85rem; font-weight: 800; margin-bottom: 0.45rem; display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap; }
+    .audio-btn { background: #fff; border: 1px solid var(--border); border-radius: 5px; cursor: pointer; color: var(--secondary); font-size: 0.82rem; padding: 2px 7px; font-weight: 700; }
+    .audio-btn:hover { background: var(--accent-light); border-color: var(--accent); color: #92400e; }
+
+    /* Quiz */
+    .quiz-card { background: #ffffff; border: 1px solid var(--border); border-radius: var(--radius); padding: 1.25rem; margin-bottom: 1.15rem; box-shadow: var(--shadow); }
+    .quiz-question-jp { font-weight: 800; font-size: 0.98rem; color: var(--primary); margin-bottom: 0.2rem; }
+    .quiz-question-zh { font-weight: 600; font-size: 0.9rem; color: var(--secondary); margin-bottom: 0.75rem; }
+    .quiz-options { display: grid; grid-template-columns: 1fr 1fr; gap: 0.6rem; }
+    .quiz-opt-btn { text-align: left; padding: 0.75rem 0.95rem; border: 1px solid var(--border); background: #f8fafc; border-radius: 6px; cursor: pointer; font-size: 0.86rem; transition: all 0.2s; }
+    .quiz-opt-btn:hover:not(:disabled) { background: #e2e8f0; }
+    .quiz-opt-btn.correct { background: #dcfce7 !important; border-color: var(--success) !important; color: #166534 !important; }
+    .quiz-opt-btn.wrong { background: #fee2e2 !important; border-color: var(--danger) !important; color: #991b1b !important; }
+    .quiz-feedback { margin-top: 0.65rem; padding: 0.75rem 1rem; border-radius: 6px; font-size: 0.86rem; display: none; }
+    .quiz-feedback.show { display: block; }
+    .feedback-correct { background: #f0fdf4; color: #15803d; border-left: 4px solid var(--success); }
+    .feedback-wrong { background: #fef2f2; color: #b91c1c; border-left: 4px solid var(--danger); }
+
+    /* Search */
+    .search-box { display: flex; gap: 0.75rem; margin-bottom: 1.25rem; background: #fff; padding: 0.85rem; border-radius: var(--radius); border: 1px solid var(--border); flex-wrap: wrap; }
+    .search-input { flex: 1; min-width: 220px; padding: 0.6rem 0.9rem; border: 1px solid var(--border); border-radius: 6px; font-size: 0.92rem; }
+    .filter-select { padding: 0.6rem 0.9rem; border: 1px solid var(--border); border-radius: 6px; font-size: 0.9rem; background: #fff; }
+
+    /* Speaking Chunks */
+    .chunk-pill { display: inline-block; background: #e0f2fe; color: #0369a1; border: 1px solid #bae6fd; padding: 0.3rem 0.65rem; border-radius: 999px; font-size: 0.82rem; font-weight: 700; margin: 0.2rem; cursor: pointer; }
+    .chunk-pill:hover { background: #bae6fd; }
+
+    /* Floating Selection Read-Aloud Button */
+    #selectionSpeakBtn { position: fixed; display: none; z-index: 2000; background: #0f172a; color: #fff; border: 1px solid var(--accent); padding: 0.35rem 0.7rem; border-radius: 999px; font-size: 0.78rem; font-weight: 700; cursor: pointer; box-shadow: 0 4px 10px rgba(0,0,0,0.25); }
+
+    footer { max-width: 1320px; margin: 2rem auto; padding: 1.25rem; border-top: 1px solid var(--border); font-size: 0.82rem; color: #475569; }
+    footer a { color: var(--secondary); text-decoration: none; font-weight: 600; }
+    footer a:hover { text-decoration: underline; }
+
+    @media (max-width: 768px) {
+      header, .tts-bar { padding: 0.85rem 1rem; }
+      .grid-2, .quiz-options { grid-template-columns: 1fr; }
+      .chat-bubble { max-width: 98%; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Floating Selection TTS Button -->
+  <button id="selectionSpeakBtn" onclick="speakSelectedText()">🔊 選擇發音 / 選択読上げ</button>
+
+  <!-- HEADER -->
+  <header>
+    <div class="header-content">
+      <div>
+        <div class="logo-jp">
+          <span>⚡ トンネル電気設備・台電容量交渉 OJT 双方向実務教材</span>
+          <span class="badge-tag">中日対訳・上日下中</span>
+        </div>
+        <div class="logo-zh">隧道電氣設備與台灣電力（台電）契約容量協商 OJT 雙向實務教材</div>
+      </div>
+      <div class="view-toggles">
+        <button id="furiganaToggle" class="toggle-btn active" onclick="toggleAnnotation('furigana')">あ 振仮名：開</button>
+        <button id="pinyinToggle" class="toggle-btn active" onclick="toggleAnnotation('pinyin')">🔤 拼音：開</button>
+        <button id="clozeToggle" class="toggle-btn" onclick="toggleCloze()">🙈 遮罩練習：關</button>
+        <button class="toggle-btn" onclick="window.print()">🖨️ 印刷 / PDF</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- TTS AUDIO BAR -->
+  <div class="tts-bar">
+    <div class="tts-inner">
+      <div class="tts-controls">
+        <span>🎙️ <strong>語音 (TTS)：</strong></span>
+        <button class="tts-btn" onclick="speakText('テスト音声です。台電との契約容量交渉の準備はよろしいですか？', 'ja-JP')">🔊 測試JP</button>
+        <button class="tts-btn" onclick="speakText('語音測試正常，現在可以開始練習隧道電氣與台電協商教材。', 'zh-TW')">🔊 測試ZH</button>
+        <button class="tts-btn" onclick="playTestBeep()">🔔 測試提示音</button>
+        <button class="tts-btn" onclick="pauseResumeTTS()">⏯️ 暫停/繼續</button>
+        <button class="tts-btn" onclick="stopTTS()">⏹️ 停止</button>
+        <div class="tts-speed">
+          <span>速度:</span>
+          <input type="range" id="ttsRate" min="0.5" max="1.5" step="0.1" value="0.95" oninput="document.getElementById('rateLabel').innerText=this.value+'x'">
+          <span id="rateLabel">0.95x</span>
+        </div>
+        <select id="voiceSelectJP" style="background:#1e293b;color:#f8fafc;border:1px solid #475569;border-radius:4px;padding:2px 6px;font-size:0.75rem;max-width:165px;" title="日文語音選擇"></select>
+        <select id="voiceSelectZH" style="background:#1e293b;color:#f8fafc;border:1px solid #475569;border-radius:4px;padding:2px 6px;font-size:0.75rem;max-width:165px;" title="中文語音選擇"></select>
+      </div>
+      <div class="tts-status" id="ttsStatus">💡 支援「畫詞發音」｜若預覽視窗無聲，請下載 HTML 以 Chrome / Edge 開啟即可使用 Microsoft 自然語音</div>
+    </div>
+  </div>
+
+  <!-- NAVIGATION TABS -->
+  <div class="nav-bar">
+    <div class="nav-tabs">
+      <button class="tab-btn active" onclick="switchTab(event, 'tab1')">
+        <div>模組 01: 電気設備・受変電系統</div>
+        <span class="tab-sub">隧道電氣與受變電架構</span>
+      </button>
+      <button class="tab-btn" onclick="switchTab(event, 'tab2')">
+        <div>模組 02: 台電容量採否基準</div>
+        <span class="tab-sub">台電容量審核採否關鍵</span>
+      </button>
+      <button class="tab-btn" onclick="switchTab(event, 'tab3')">
+        <div>模組 03: 台電交渉材料・対策</div>
+        <span class="tab-sub">台電談判籌碼與對策</span>
+      </button>
+      <button class="tab-btn" onclick="switchTab(event, 'tab4')">
+        <div>模組 04: 坑内安全・異常対策</div>
+        <span class="tab-sub">坑內電氣安全與應變</span>
+      </button>
+      <button class="tab-btn" onclick="switchTab(event, 'tab5')">
+        <div>模組 05: 台電交渉・現場会話</div>
+        <span class="tab-sub">台電協商與工務對話</span>
+      </button>
+      <button class="tab-btn" onclick="switchTab(event, 'tab6')">
+        <div>模組 06: 4層用語集・測驗</div>
+        <span class="tab-sub">四層術語庫與隨堂測驗</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- MAIN CONTAINER -->
+  <main id="appContainer">
+
+    <!-- ==================== TAB 1: TUNNEL ELECTRICAL SYSTEM ==================== -->
+    <div id="tab1" class="tab-content active">
+      <div class="card">
+        <div class="card-header-block">
+          <div class="card-title-jp">⚡ モジュール 01：トンネル工事の<ruby>仮設電気設備<rt>かせつでんきせつび</rt></ruby>と<ruby>受変電系統<rt>じゅへんでんけいとう</rt></ruby></div>
+          <div class="card-title-zh">模組 01：隧道工程臨時電氣設備與受變電系統架構</div>
+        </div>
+
+        <div class="bi-block">
+          <div class="bi-audio-group">
+            <button class="audio-btn" onclick="speakText('トンネル工事では、掘削機や換気ファン、排水ポンプ、泥水処理プラントなどの大電力負荷を稼働させるため、台湾電力から高圧電源を受電し、坑口変電設備で降圧して坑内外へ配電します。', 'ja-JP')">🔊 JP</button>
+            <button class="audio-btn" onclick="speakText('隧道工程中，為了運轉潛盾機、通風機、排水泵浦及泥水處理廠等高耗電設備，必須向台灣電力公司申請高壓臨時用電，經工地受變電站降壓後配電至坑內外。', 'zh-TW')">🔊 ZH</button>
+          </div>
+          <div class="bi-jp">【<ruby>概要<rt>がいよう</rt></ruby>】トンネル<ruby>工事<rt>こうじ</rt></ruby>では、<ruby>掘削機<rt>くっさくき</rt></ruby>（シールド<ruby>機<rt>き</rt></ruby>）や<ruby>換気<rt>かんき</rt></ruby>ファン、<ruby>排水<rt>はいすい</rt></ruby>ポンプ、<ruby>泥水処理<rt>でいすいしょり</rt></ruby>プラントなどの<ruby>大電力負荷<rt>だいでんりょくふか</rt></ruby>を<ruby>稼働<rt>かどう</rt></ruby>させるため、<ruby>台湾電力<rt>たいわんでんりょく</rt></ruby>（<ruby>台電<rt>たいでん</rt></ruby>）から<ruby>高圧電源<rt>こうあつでんげん</rt></ruby>（11.4kV または 22.8kV）を<ruby>受電<rt>じゅでん</rt></ruby>し、<ruby>坑口変電設備<rt>こうぐちへんでんせつび</rt></ruby>で<ruby>降圧<rt>こうあつ</rt></ruby>して<ruby>坑内外<rt>こうないがい</rt></ruby>へ<ruby>配電<rt>はいでん</rt></ruby>します。</div>
+          <div class="bi-zh">【技術概要】隧道工程中，為了運轉潛盾機（或隧道掘削機）、通風機、排水泵浦及泥水處理廠（STP）等高耗電設備，必須向台灣電力公司（台電）申請高壓臨時用電（11.4kV 或 22.8kV），經工地受變電站降壓後配電至坑內外。</div>
+          <div class="bi-pinyin">【Jìshù gàiyào】Suìdào gōngchéng zhōng, wèile yùnzhuǎn qiándùnjī, tōngfēngjī, páishuǐ bèngpǔ jí níshuǐ chǔlǐchǎng děng gāo hàodiàn shèbèi, bìxū xiàng Táiwān Diànlì Gōngsī shēnqǐng gāoyā línshí yòngdiàn, jīng gōngdì shòubiàndiànzhàn jiàngyā hòu pèidiàn zhì kēngnèiwài.</div>
+        </div>
+
+        <!-- SVG DIAGRAM: Tunnel Single-Line & Power Distribution -->
+        <div class="diagram-container">
+          <svg viewBox="0 0 960 360" width="100%" height="310" xmlns="http://www.w3.org/2000/svg" style="background:#f8fafc; border-radius:8px;">
+            <!-- Taipower Side -->
+            <rect x="15" y="30" width="165" height="120" fill="#fff7ed" stroke="#ea580c" stroke-width="2" rx="8"/>
+            <text x="97" y="58" text-anchor="middle" font-size="13" font-weight="bold" fill="#9a3412">① 台湾電力 (台電)</text>
+            <text x="97" y="76" text-anchor="middle" font-size="11" font-weight="bold" fill="#c2410c">配電饋線 11.4kV / 22.8kV</text>
+            <text x="97" y="96" text-anchor="middle" font-size="10" fill="#475569">Feeder (フィーダー)</text>
+            <rect x="35" y="110" width="125" height="26" fill="#fed7aa" rx="4"/>
+            <text x="97" y="127" text-anchor="middle" font-size="10" font-weight="bold" fill="#7c2d12">責任分界點 (LBS/PAS)</text>
+
+            <!-- Line to MOF -->
+            <line x1="180" y1="90" x2="235" y2="90" stroke="#dc2626" stroke-width="3.5"/>
+            <circle cx="207" cy="90" r="6" fill="#dc2626"/>
+
+            <!-- Contractor High-Voltage Substation -->
+            <rect x="235" y="20" width="250" height="150" fill="#eff6ff" stroke="#1d4ed8" stroke-width="2" rx="8"/>
+            <text x="360" y="45" text-anchor="middle" font-size="13" font-weight="bold" fill="#1e3a8a">② 坑口高圧受変電設備 (受變電站)</text>
+            
+            <rect x="250" y="60" width="95" height="42" fill="#dbeafe" stroke="#3b82f6" rx="4"/>
+            <text x="297" y="78" text-anchor="middle" font-size="10" font-weight="bold" fill="#1e40af">MOF (CT/PT)</text>
+            <text x="297" y="93" text-anchor="middle" font-size="9" fill="#334155">台電電表計量</text>
+
+            <rect x="365" y="60" width="105" height="42" fill="#dbeafe" stroke="#3b82f6" rx="4"/>
+            <text x="417" y="78" text-anchor="middle" font-size="10" font-weight="bold" fill="#1e40af">VCB / GIS 盤</text>
+            <text x="417" y="93" text-anchor="middle" font-size="9" fill="#334155">保護電驛 (50/51)</text>
+
+            <rect x="250" y="112" width="220" height="44" fill="#fef3c7" stroke="#d97706" rx="4"/>
+            <text x="360" y="131" text-anchor="middle" font-size="11" font-weight="bold" fill="#92400e">③ 主変圧器 (Tr) &amp; APF 濾波器</text>
+            <text x="360" y="146" text-anchor="middle" font-size="9" fill="#78350f">22.8kV → 6.6kV / 3.3kV / 440V / 380V</text>
+
+            <!-- Backup Generator -->
+            <rect x="235" y="205" width="250" height="80" fill="#f0fdf4" stroke="#16a34a" stroke-width="2" rx="8"/>
+            <text x="360" y="230" text-anchor="middle" font-size="12" font-weight="bold" fill="#166534">④ 非常用発電機 + ATS 切替盤</text>
+            <text x="360" y="248" text-anchor="middle" font-size="10" fill="#15803d">緊急發電機（停電保安負荷＋削峰用）</text>
+            <text x="360" y="266" text-anchor="middle" font-size="9" fill="#475569">排水泵浦・坑內照明・通風・通信備援</text>
+            <line x1="360" y1="205" x2="360" y2="170" stroke="#16a34a" stroke-width="2.5" stroke-dasharray="5,3"/>
+
+            <!-- Surface Loads -->
+            <line x1="485" y1="75" x2="555" y2="75" stroke="#1e40af" stroke-width="3"/>
+            <rect x="555" y="25" width="380" height="105" fill="#ffffff" stroke="#64748b" stroke-width="1.5" rx="8"/>
+            <text x="745" y="48" text-anchor="middle" font-size="12" font-weight="bold" fill="#0f2b48">⑤ 地上設備負荷 (地面層負載)</text>
+            <text x="570" y="72" font-size="11" fill="#334155">• 泥水処理プラント (STP 泥水處理廠): 400〜800 kW</text>
+            <text x="570" y="92" font-size="11" fill="#334155">• ガントリークレーン (門型吊車) / コンプレッサー (空壓機)</text>
+            <text x="570" y="112" font-size="11" fill="#334155">• 換気ファン (送排風機) / 裏込めプラント (背填拌合廠)</text>
+
+            <!-- Tunnel Shaft & Underground Loads -->
+            <line x1="485" y1="135" x2="530" y2="135" stroke="#dc2626" stroke-width="3.5"/>
+            <line x1="530" y1="135" x2="530" y2="235" stroke="#dc2626" stroke-width="3.5"/>
+            <line x1="530" y1="235" x2="555" y2="235" stroke="#dc2626" stroke-width="3.5"/>
+            <text x="515" y="190" font-size="10" font-weight="bold" fill="#dc2626" transform="rotate(-90 515,190)">高圧ケーブル立坑引下</text>
+
+            <rect x="555" y="155" width="380" height="175" fill="#f1f5f9" stroke="#334155" stroke-width="2" rx="8"/>
+            <text x="745" y="180" text-anchor="middle" font-size="12" font-weight="bold" fill="#0f2b48">⑥ 坑内高圧配電・シールド機負荷 (隧道坑內負載)</text>
+            <rect x="575" y="195" width="160" height="55" fill="#fff" stroke="#475569" rx="5"/>
+            <text x="655" y="216" text-anchor="middle" font-size="10" font-weight="bold" fill="#1e3a8a">ケーブルリール</text>
+            <text x="655" y="234" text-anchor="middle" font-size="9" fill="#475569">高壓電纜捲筒 (6.6kV/3.3kV)</text>
+
+            <rect x="755" y="195" width="165" height="55" fill="#dbeafe" stroke="#1d4ed8" rx="5"/>
+            <text x="837" y="216" text-anchor="middle" font-size="10" font-weight="bold" fill="#1e3a8a">後方台車変圧器</text>
+            <text x="837" y="234" text-anchor="middle" font-size="9" fill="#334155">機載降壓盤 (VFD/PLC)</text>
+
+            <text x="575" y="275" font-size="11" font-weight="bold" fill="#dc2626">• カッター駆動 (刀盤馬達) &amp; 推進ジャッキ: 1,000〜2,500 kW</text>
+            <text x="575" y="295" font-size="11" fill="#334155">• 排泥ポンプ (排泥泵浦) / 坑内排水ポンプ / 坑内照明 (DC24V/110V)</text>
+            <text x="575" y="315" font-size="10" font-weight="bold" fill="#16a34a">※ 漏電遮断器 (ELB 30mA/0.1s) ＆ 接地網 (接地電阻 &lt;10Ω)</text>
+          </svg>
+          <div class="diagram-caption-jp">【図 1】トンネル工事における仮設受変電・坑内外配電系統図</div>
+          <div class="diagram-caption-zh">【圖 1】隧道工程臨時受變電站與坑內外配電單線系統架構圖</div>
+        </div>
+
+        <h3 style="margin: 1.5rem 0 0.5rem; color: var(--primary);">
+          <span>📊 トンネル工事の主要電力負荷と電圧階級</span>
+          <span style="font-size:0.9rem; color:var(--secondary); font-weight:normal; margin-left:0.5rem;">(隧道工程主要用電負載與電壓等級一覽)</span>
+        </h3>
+        <div class="table-wrap">
+          <table class="styled-table">
+            <thead>
+              <tr>
+                <th><div class="th-jp">系統・設備</div><div class="th-zh">系統與設備</div></th>
+                <th><div class="th-jp">標準電圧（台湾）</div><div class="th-zh">台灣常用電壓</div></th>
+                <th><div class="th-jp">負荷特性</div><div class="th-zh">負載特性</div></th>
+                <th><div class="th-jp">台電審査での注意点</div><div class="th-zh">台電審查注意事項</div></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>
+                  <div class="td-jp"><ruby>受電引込<rt>じゅでんひきこみ</rt></ruby>（<ruby>臨時用電<rt>りんじようでん</rt></ruby>）</div>
+                  <div class="td-zh">高壓臨時用電引接</div>
+                  <div class="td-pinyin">Gāoyā línshí yòngdiàn yǐnjiē</div>
+                </td>
+                <td><div class="td-jp">11.4 kV / 22.8 kV</div><div class="td-zh">三相三線/四線 60Hz</div></td>
+                <td><div class="td-jp">合計設備容量 100kW以上</div><div class="td-zh">契約容量 100kW 以上</div></td>
+                <td><div class="td-jp">22.8kV地区は2,000kW未満まで高圧供給</div><div class="td-zh">須檢附《新增設用電計畫書》與電機技師簽證</div></td>
+              </tr>
+              <tr>
+                <td>
+                  <div class="td-jp">シールド<ruby>機本体<rt>きほんたい</rt></ruby></div>
+                  <div class="td-zh">潛盾機主體動力</div>
+                  <div class="td-pinyin">Qiándùnjī zhǔtǐ dònglì</div>
+                </td>
+                <td><div class="td-jp">6.6 kV / 3.3 kV → 440V</div><div class="td-zh">機載變壓器降壓</div></td>
+                <td><div class="td-jp"><ruby>インバータ<rt>VFD</rt></ruby>制御・突入電流</div><div class="td-zh">變頻器多、起動電流大</div></td>
+                <td><div class="td-jp">高調波（諧波）および電圧フリッカ対策必須</div><div class="td-zh">須符合台電「諧波管制暫行標準」及電壓閃爍規定</div></td>
+              </tr>
+              <tr>
+                <td>
+                  <div class="td-jp"><ruby>泥水処理<rt>でいすいしょり</rt></ruby>・<ruby>送排泥<rt>そうはいでい</rt></ruby>ポンプ</div>
+                  <div class="td-zh">泥水處理廠與送排泥泵浦</div>
+                  <div class="td-pinyin">Níshuǐ chǔlǐchǎng yǔ sòngpáiní bèngpǔ</div>
+                </td>
+                <td><div class="td-jp">380V / 440V</div><div class="td-zh">三相動力</div></td>
+                <td><div class="td-jp">連続運転・掘進時連動</div><div class="td-zh">連續運轉、與掘進同步</div></td>
+                <td><div class="td-jp">力率改善（コンデンサ盤）で力率 80%以上確保</div><div class="td-zh">加裝電容器改善功率因數（目標 &ge; 80%~95%）</div></td>
+              </tr>
+              <tr>
+                <td>
+                  <div class="td-jp"><ruby>保安負荷<rt>ほあんふか</rt></ruby>（<ruby>排水<rt>はいすい</rt></ruby>・<ruby>換気<rt>かんき</rt></ruby>）</div>
+                  <div class="td-zh">保安緊急負載（排水・通風）</div>
+                  <div class="td-pinyin">Bǎo'ān jǐnjí fùzài</div>
+                </td>
+                <td><div class="td-jp">380V / 220V / 110V</div><div class="td-zh">ATS 自動切換</div></td>
+                <td><div class="td-jp">停電時無停止が絶対条件</div><div class="td-zh">停電時絕對不可中斷</div></td>
+                <td><div class="td-jp">非常用発電機の逆送防止（インターロック）</div><div class="td-zh">發電機併聯或切換須設機械/電氣互鎖防逆送電</div></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- ==================== TAB 2: TAIPOWER APPROVAL/REJECTION CRITERIA ==================== -->
+    <div id="tab2" class="tab-content">
+      <div class="card">
+        <div class="card-header-block">
+          <div class="card-title-jp">📋 モジュール 02：<ruby>台湾電力<rt>たいわんでんりょく</rt></ruby>（<ruby>台電<rt>たいでん</rt></ruby>）の<ruby>電力容量採否基準<rt>でんりょくようりょうさいひきじゅん</rt></ruby>と<ruby>審査<rt>しんさ</rt></ruby>フロー</div>
+          <div class="card-title-zh">模組 02：台灣電力公司（台電）電力容量審核採否基準與審查流程</div>
+        </div>
+
+        <div class="bi-block warn">
+          <div class="bi-audio-group">
+            <button class="audio-btn" onclick="speakText('台湾電力は、施工用臨時電源であっても配電系統の安定性を最優先に審査します。契約容量が不許可または減量査定される主な理由は、フィーダー容量不足、高調波・電圧降下超過、過大な需量計算の三点です。', 'ja-JP')">🔊 JP</button>
+            <button class="audio-btn" onclick="speakText('台電審查施工臨時用電時，以配電系統供電安全為最優先考量。契約容量遭退件或減量核定的三大主因為：既有饋線容量不足、諧波與電壓閃爍超標，以及設備容量與需量計算依據不足。', 'zh-TW')">🔊 ZH</button>
+          </div>
+          <div class="bi-jp">【<ruby>背景<rt>はいけい</rt></ruby>】<ruby>台電<rt>たいでん</rt></ruby>は<ruby>施工用臨時用電<rt>せこうようりんじようでん</rt></ruby>であっても<ruby>配電系統<rt>はいでんけいとう</rt></ruby>の<ruby>安定性<rt>あんていせい</rt></ruby>を<ruby>最優先<rt>さいゆうせん</rt></ruby>に<ruby>審査<rt>しんさ</rt></ruby>します。<ruby>契約容量<rt>けいやくようりょう</rt></ruby>が<ruby>不許可<rt>ふきょか</rt></ruby>（<ruby>退件<rt>たいけん</rt></ruby>）または<ruby>減量査定<rt>げんりょうさてい</rt></ruby>される<ruby>主<rt>おも</rt></ruby>な<ruby>理由<rt>りゆう</rt></ruby>を<ruby>把握<rt>はあく</rt></ruby>することが<ruby>交渉<rt>こうしょう</rt></ruby>の第一歩です。</div>
+          <div class="bi-zh">【審查背景】台電依據《營業規章》及《新增設用電計畫書》審查施工臨時用電，以配電系統供電安全為最優先。掌握契約容量遭「不予核准（退件）」或「減量核定」的五大核心原因，是談判準備的第一步。</div>
+          <div class="bi-pinyin">【Shěnchá bèijǐng】Táidiàn yījù 《Yíngyè Guīzhāng》 jí 《Xīnzēngshè Yòngdiàn Jìhuàshū》 shěnchá shīgōng línshí yòngdiàn, yǐ pèidiàn xìtǒng gōngdiàn ānquán wéi zuì yōuxiān.</div>
+        </div>
+
+        <h3 style="margin: 1.5rem 0 0.75rem; color: var(--primary);">
+          <span>🔍 台電が電力容量を「不採用・制限」とする 5 大理由</span>
+          <span style="font-size:0.9rem; color:var(--secondary); font-weight:normal; margin-left:0.5rem;">(台電退件／限縮契約容量的五大核心原因)</span>
+        </h3>
+
+        <div class="table-wrap">
+          <table class="styled-table">
+            <thead>
+              <tr>
+                <th><div class="th-jp">採否判定要因</div><div class="th-zh">審查卡關要因</div></th>
+                <th><div class="th-jp">台電側の審査視点・根拠</div><div class="th-zh">台電審查視角與法規依據</div></th>
+                <th><div class="th-jp">トンネル現場で起きやすい問題</div><div class="th-zh">隧道工地常見問題</div></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>
+                  <div class="td-jp">① <ruby>既設<rt>きせつ</rt></ruby>フィーダー<ruby>容量不足<rt>ようりょうぶそく</rt></ruby></div>
+                  <div class="td-zh">既有饋線剩餘容量不足</div>
+                  <div class="td-pinyin">Jìyǒu kuìxiàn shèngyú róngliàng bùzú</div>
+                </td>
+                <td><div class="td-jp"><ruby>変電所<rt>へんでんしょ</rt></ruby>・<ruby>配電線<rt>はいでんせん</rt></ruby>の<ruby>熱容量<rt>ねつようりょう</rt></ruby>および<ruby>N-1基準<rt>えぬまいなすいちきじゅん</rt></ruby>の制約</div><div class="td-zh">鄰近變電所與配電饋線已滿載，無法再負擔數千 kW 臨時負載</div></td>
+                <td><div class="td-jp">都心部の地下鉄工事で他ビル・工場と同一フィーダーが競合</div><div class="td-zh">都會區捷運工地周邊已有商業大樓或科技廠房佔滿饋線容量</div></td>
+              </tr>
+              <tr>
+                <td>
+                  <div class="td-jp">② <ruby>電圧降下<rt>でんあつこうか</rt></ruby>・フリッカ<ruby>超過<rt>ちょうか</rt></ruby></div>
+                  <div class="td-zh">電壓降與電壓閃爍超標</div>
+                  <div class="td-pinyin">Diànyā jiàng yǔ diànyā shǎnshuò chāobiāo</div>
+                </td>
+                <td><div class="td-jp">《<ruby>営業規章<rt>えいぎょうきしょう</rt></ruby>第51条》：系統への<ruby>電圧閃爍<rt>でんあつせんしゃく</rt></ruby>・<ruby>波動<rt>はどう</rt></ruby>の禁止</div><div class="td-zh">大馬力馬達直啟造成鄰近用戶電壓驟降或燈光閃爍</div></td>
+                <td><div class="td-jp">カッター<ruby>起動<rt>きどう</rt></ruby>・<ruby>大型<rt>おおがた</rt></ruby>ポンプ<ruby>直入起動<rt>ちょくにゅうきどう</rt></ruby>時の突入電流（Inrush）</div><div class="td-zh">潛盾機刀盤起動、大型泥水泵浦或門型吊車瞬間起動電流過大</div></td>
+              </tr>
+              <tr>
+                <td>
+                  <div class="td-jp">③ <ruby>高調波<rt>こうちょうは</rt></ruby>（ハーモニクス）<ruby>規制<rt>きせい</rt></ruby></div>
+                  <div class="td-zh">諧波電流污染超標</div>
+                  <div class="td-pinyin">Xiébō diànliú wūrǎn chāobiāo</div>
+                </td>
+                <td><div class="td-jp">《<ruby>電力系統諧波管制暫行標準<rt>でんりょくけいとうちょうはかんせいざんこうひょうじゅん</rt></ruby>》THD 基準超過</div><div class="td-zh">用戶端注入電網的總諧波失真（THD）超過台電容許上限</div></td>
+                <td><div class="td-jp">シールド機の<ruby>可変速駆動<rt>かへんそくくどう</rt></ruby>（VFD）や充電設備による高調波発生</div><div class="td-zh">潛盾機大量採用 VFD 變頻器，未檢附諧波計算書或濾波器規格</div></td>
+              </tr>
+              <tr>
+                <td>
+                  <div class="td-jp">④ <ruby>過大<rt>かだい</rt></ruby>な<ruby>契約容量<rt>けいやくようりょう</rt></ruby>（<ruby>虚占<rt>きょせん</rt></ruby>懸念）</div>
+                  <div class="td-zh">契約容量申報過高（疑慮虛佔）</div>
+                  <div class="td-pinyin">Qìyuē róngliàng shēnbào guògāo</div>
+                </td>
+                <td><div class="td-jp"><ruby>総設備容量<rt>そうせつびようりょう</rt></ruby>をそのまま合算し、<ruby>需要率<rt>じゅようりつ</rt></ruby>・<ruby>不等率<rt>ふとうりつ</rt></ruby>を考慮しない申請</div><div class="td-zh">台電嚴防用戶虛佔饋線容量，要求提供實際同時運轉需量證明</div></td>
+                <td><div class="td-jp">施工計画書上の全機械 kW を単純合算して過大な容量を申請</div><div class="td-zh">將備用機台、非同時作業設備全部加總，未扣除同時率與負載率</div></td>
+              </tr>
+              <tr>
+                <td>
+                  <div class="td-jp">⑤ <ruby>配電場所<rt>はいでんばしょ</rt></ruby>・<ruby>引込路権<rt>ひきこみろけん</rt></ruby>の未確定</div>
+                  <div class="td-zh">配電場所與管線路權未確定</div>
+                  <div class="td-pinyin">Pèidiàn chǎngsuǒ yǔ guǎnxiàn lùquán wèi quèdìng</div>
+                </td>
+                <td><div class="td-jp"><ruby>台電配電場所図審<rt>たいでんはいでんばしょずしん</rt></ruby>・<ruby>道路掘削許可<rt>どうろくっさくきょか</rt></ruby>の未取得</div><div class="td-zh">高壓引進管路需經道路開挖或他人土地，未附路權同意書</div></td>
+                <td><div class="td-jp">仮設ヤード狭小により台電規定の受電室面積を確保できない</div><div class="td-zh">工區狹小無法依規定留設配電場所空間，或外線挖路許可延宕</div></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- ==================== TAB 3: NEGOTIATION MATERIALS & COUNTERMEASURES ==================== -->
+    <div id="tab3" class="tab-content">
+      <div class="card">
+        <div class="card-header-block">
+          <div class="card-title-jp">🤝 モジュール 03：<ruby>台湾電力会社<rt>たいわんでんりょくがいしゃ</rt></ruby>への<ruby>交渉材料<rt>こうしょうざいりょう</rt></ruby>・<ruby>技術的説得<rt>ぎじゅつてきせっとく</rt></ruby>ロジック</div>
+          <div class="card-title-zh">模組 03：對台電談判籌碼、技術說服材料與突破方案</div>
+        </div>
+
+        <div class="bi-block success">
+          <div class="bi-jp">【<ruby>交渉の基本戦略<rt>こうしょうのきほんせんりゃく</rt></ruby>】<ruby>単<rt>たん</rt></ruby>に「工事に必要だから電力をくれ」ではなく、<strong>①実需量の圧縮根拠、②段階的受電スケジュール、③電力品質保護対策、④系統負荷平準化への協力</strong>の 4 点を数値資料として提示することで、台電の「<ruby>条件付承認<rt>じょうけんつきしょうにん</rt></ruby>」を引き出します。</div>
+          <div class="bi-zh">【談判核心策略】不能只訴求「工程需要用電」，必須提出四大具體量化籌碼：<strong>①實際需量精算依據、②分階段供電時程、③主動式電網品質保護對策、④配合台電尖峰削峰方案</strong>，讓台電工程師有依據核發「有條件核准供電」。</div>
+          <div class="bi-pinyin">【Tánpàn héxīn cèlüè】Bùnéng zhǐ sùqiú "gōngchéng xūyào yòngdiàn", bìxū tíchū sì dà jùtǐ liànghuà chóumǎ.</div>
+        </div>
+
+        <div class="grid-2">
+          <!-- Card 1 -->
+          <div class="bi-block">
+            <div class="bi-jp"><strong>籌碼 1：<ruby>需要率<rt>じゅようりつ</rt></ruby>・<ruby>不等率<rt>ふとうりつ</rt></ruby>による「<ruby>真の最大需量<rt>しんのさいだいじゅりょう</rt></ruby>」再計算</strong></div>
+            <div class="bi-kana">じゅようりつ・ふとうりつによる「しんのさいだいじゅりょう」さいけいさん</div>
+            <div class="bi-zh"><strong>籌碼 1：以「需量因數」與「不等率」重算真實最大需量</strong><br>
+            • 提出《用電負載時序表》，證明「潛盾掘進」與「環片組裝／吊裝／灌漿攪拌」為錯開作業，不會 100% 同時滿載。<br>
+            • 備用設備（Standby 泵浦、備用空壓機）明確標註不計入同時負載，可合法壓低申請契約容量 15%~25%。</div>
+          </div>
+
+          <!-- Card 2 -->
+          <div class="bi-block">
+            <div class="bi-jp"><strong>籌碼 2：<ruby>段階的増設<rt>だんかいてきぞうせつ</rt></ruby>（<ruby>分期供電<rt>ぶんききょうでん</rt></ruby>）の提案</strong></div>
+            <div class="bi-kana">だんかいてきぞうせつ（ぶんききょうでん）のていあん</div>
+            <div class="bi-zh"><strong>籌碼 2：提出「分階段送電／分期增設」計畫</strong><br>
+            • 第一期（地盤改良・連續壁・開挖）：僅申請 300~500 kW。<br>
+            • 第二期（潛盾機組裝與初期掘進）：增設至 1,200 kW。<br>
+            • 第三期（長距離本線掘進高峰）：才增設至峰值容量。避免前期閒置，消除台電「虛佔饋線」疑慮。</div>
+          </div>
+
+          <!-- Card 3 -->
+          <div class="bi-block">
+            <div class="bi-jp"><strong>籌碼 3：ソフトスタータ・APFによる<ruby>系統保護<rt>けいとうほご</rt></ruby>の確約</strong></div>
+            <div class="bi-kana">ソフトスタータ・エーピーエフによるけいとうほごのかくやく</div>
+            <div class="bi-zh"><strong>籌碼 3：主動檢附軟起動與 APF 諧波抑制計算書</strong><br>
+            • 針對刀盤與大型泵浦加裝軟起動器（Soft Starter）或變頻器，將起動電流壓低至額定電流 1.5~2 倍以下。<br>
+            • 承諾裝設主動濾波器（APF）與自動功因調整盤（APFR），保證總諧波失真（THD）符合台電標準且功因 &ge; 95%。</div>
+          </div>
+
+          <!-- Card 4 -->
+          <div class="bi-block">
+            <div class="bi-jp"><strong>籌碼 4：<ruby>自家発電機<rt>じかはつでんき</rt></ruby>による<ruby>ピークカット<rt>ぴーくかっと</rt></ruby>（<ruby>削峰<rt>さくほう</rt></ruby>）</strong></div>
+            <div class="bi-kana">じかはつでんきによるピークカット（さくほう）</div>
+            <div class="bi-zh"><strong>籌碼 4：自備柴油發電機「尖峰削峰」與負載轉移</strong><br>
+            • 若當地饋線僅在「夏月尖峰（16:00~22:00）」緊繃，可書面切結：尖峰時段由工地自備發電機分擔地面 STP 或補助設備負載。<br>
+            • 或承諾高耗電泥水壓濾脫水作業移至離峰／夜間時段，換取台電「限制時段供電」核准。</div>
+          </div>
+
+          <!-- Card 5 -->
+          <div class="bi-block warn">
+            <div class="bi-jp"><strong>籌碼 5：<ruby>別<rt>べつ</rt></ruby>フィーダー<ruby>切替<rt>きりかえ</rt></ruby>・<ruby>分割受電<rt>ぶんかつじゅでん</rt></ruby>（<ruby>分戶引供<rt>ぶんこいんきょう</rt></ruby>）の協議</strong></div>
+            <div class="bi-kana">べつフィーダーきりかえ・ぶんかつじゅでん（ぶんこいんきょう）のきょうぎ</div>
+            <div class="bi-zh"><strong>籌碼 5：協調台電「跨區饋線轉供」或「分戶／分點引接」</strong><br>
+            • 請台電配電規劃課評估將工地負載拆分為「立坑主電源（高壓）」與「工務所／地面照明（低壓獨立電號）」。<br>
+            • 或由發進井與到達井兩端不同饋線分別引供，分散單一饋線瓶頸。</div>
+          </div>
+
+          <!-- Card 6 -->
+          <div class="bi-block warn">
+            <div class="bi-jp"><strong>籌碼 6：<ruby>発注者<rt>はっちゅうしゃ</rt></ruby>（<ruby>捷運局<rt>しょううんきょく</rt></ruby>等）による<ruby>公共工事<rt>こうきょうこうじ</rt></ruby>プロジェクト<ruby>支援要請<rt>しえんようせい</rt></ruby></strong></div>
+            <div class="bi-kana">はっちゅうしゃによるこうきょうこうじプロジェクトしえんようせい</div>
+            <div class="bi-zh"><strong>籌碼 6：透過業主（捷運局／鐵道局）發函專案協調</strong><br>
+            • 捷運與重大公共工程具民生急迫性與工期違約罰則，若區處承辦受限於內規無法放行，應備妥上述 1~4 項技術改善報告，呈請業主主辦機關召開「跨單位管線／供電協調會」專案核辦。</div>
+          </div>
+        </div>
+
+        <h3 style="margin: 1.5rem 0 0.75rem; color: var(--primary);">
+          <span>✅ 台電交渉前・提出資料セルフチェックリスト</span>
+          <span style="font-size:0.9rem; color:var(--secondary); font-weight:normal; margin-left:0.5rem;">(台電協商前必備文件檢核表・點擊打勾)</span>
+        </h3>
+        <div style="background:#fff; border:1px solid var(--border); border-radius:8px; overflow:hidden;">
+          <div class="check-item">
+            <div class="check-box-ui" onclick="this.classList.toggle('checked')"></div>
+            <div>
+              <div class="td-jp">① <ruby>新規増設用電計画書<rt>しんきぞうせつようでんけいかくしょ</rt></ruby>・<ruby>負荷時系列表<rt>ふかじけいれつひょう</rt></ruby>（<ruby>需要率<rt>じゅようりつ</rt></ruby>・<ruby>段階別<rt>だんかいべつ</rt></ruby> kW 明記）</div>
+              <div class="td-zh">《新增設用電計畫書》與分期負載時序表（明確區分各施工階段實需 kW 與備用機台）</div>
+            </div>
+          </div>
+          <div class="check-item">
+            <div class="check-box-ui" onclick="this.classList.toggle('checked')"></div>
+            <div>
+              <div class="td-jp">② <ruby>電機技師<rt>でんきぎし</rt></ruby><ruby>署名捺印<rt>しょめいなついん</rt></ruby>の<ruby>単線結線図<rt>たんせんけっせんず</rt></ruby>・<ruby>保護電駅協調計算書<rt>ほごでんえききょうちょうけいさんしょ</rt></ruby></div>
+              <div class="td-zh">依法登記執業電機技師簽證之單線系統圖與保護電驛標置協調計算書</div>
+            </div>
+          </div>
+          <div class="check-item">
+            <div class="check-box-ui" onclick="this.classList.toggle('checked')"></div>
+            <div>
+              <div class="td-jp">③ <ruby>高調波<rt>こうちょうは</rt></ruby>（THD）<ruby>検討書<rt>けんとうしょ</rt></ruby>および<ruby>大型電動機起動時電圧降下計算書<rt>おおがたでんどうききどうじでんあつこうかけいさんしょ</rt></ruby></div>
+              <div class="td-zh">諧波電流檢討計算書（含濾波器規格）及大型馬達起動電壓降／電壓閃爍計算書</div>
+            </div>
+          </div>
+          <div class="check-item">
+            <div class="check-box-ui" onclick="this.classList.toggle('checked')"></div>
+            <div>
+              <div class="td-jp">④ <ruby>配電場所配置図<rt>はいでんばしょはいちず</rt></ruby>・<ruby>契約工期工程表<rt>けいやくこうきこうていひょう</rt></ruby>・<ruby>発注者<rt>はっちゅうしゃ</rt></ruby>の<ruby>公共工事証明公文<rt>こうきょうこうじしょうめいこうぶん</rt></ruby></div>
+              <div class="td-zh">工區配電場所配置圖、工程進度表及業主公共工程證明公文</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ==================== TAB 4: SAFETY & TROUBLESHOOTING ==================== -->
+    <div id="tab4" class="tab-content">
+      <div class="card">
+        <div class="card-header-block">
+          <div class="card-title-jp">🦺 モジュール 04：<ruby>坑内電気安全管理<rt>こうないでんきあんぜんかんり</rt></ruby>と<ruby>重大トラブル<rt>じゅうだいとらぶる</rt></ruby><ruby>緊急対策<rt>きんきゅうたいさく</rt></ruby></div>
+          <div class="card-title-zh">模組 04：隧道坑內電氣安全規範與重大異常緊急應變</div>
+        </div>
+
+        <div class="bi-block danger">
+          <div class="bi-jp">【<ruby>非妥協<rt>ひだきょう</rt></ruby><ruby>安全鉄則<rt>あんぜんてっそく</rt></ruby>】トンネル<ruby>坑内<rt>こうない</rt></ruby>は<ruby>湧水<rt>ゆうすい</rt></ruby>・<ruby>湿気<rt>しっけ</rt></ruby>・<ruby>導電性<rt>どうでんせい</rt></ruby>の鋼製セグメントや支保工に囲まれた「<ruby>感電リスク最高ランク<rt>かんでんりすくさいこうらんく</rt></ruby>」の作業環境です。<strong>①停電作業時の LOTO（施錠・札掛け）＋検電・接地、②高感度高速形漏電遮断器（30mA / 0.1秒以内）の100%設置、③活線作業の原則禁止</strong>を徹底してください。</div>
+          <div class="bi-zh">【非妥協安全鐵則】隧道坑內充滿湧水、潮濕與導電性鋼材（鋼環片／鋼支保），屬於「感電風險最高等級」作業環境。務必落實：<strong>①停電檢修執行 LOTO（上鎖掛牌）＋驗電＋掛設接地線；②移動式及潮濕場所機具 100% 裝設高靈敏度高速型漏電斷路器（30mA / 0.1秒內）；③嚴禁活電作業</strong>。</div>
+          <div class="bi-pinyin">【Fēi tuǒxié ānquán tiězé】Suìdào kēngnèi chōngmǎn yǒngshuǐ, cháoshī yǔ dǎodiànxìng gāngcái, shǔyú "gǎndiàn fēngxiǎn zuìgāo děngjí" zuòyè huánjìng.</div>
+        </div>
+
+        <div class="grid-2">
+          <div style="background:#fff5f5; border:1px solid #fecaca; padding:1.2rem; border-radius:8px;">
+            <div style="font-weight:800; color:var(--danger); margin-bottom:0.35rem;">⚠️ 異常 1：<ruby>停電<rt>ていでん</rt></ruby>・<ruby>台電側遮断器トリップ<rt>たいでんがわしゃだんきとりっぷ</rt></ruby>（跳電）</div>
+            <div style="font-size:0.86rem;">
+              <p><strong>【原因】</strong>坑内ケーブル地絡・絶縁破壊、保護電驛協調不良（主盤先跳）。</p>
+              <p style="color:var(--zh-text);"><strong>【應變】</strong>①確認 ATS 是否自動切換至緊急發電機維持排水與通風。②嚴禁未查明原因即強行復歸（投入）。③分段量測絕緣電阻（Megger）找出故障區段隔離後復電。</p>
+            </div>
+          </div>
+
+          <div style="background:#fffbeb; border:1px solid #fde68a; padding:1.2rem; border-radius:8px;">
+            <div style="font-weight:800; color:var(--warning); margin-bottom:0.35rem;">⚠️ 異常 2：<ruby>超約用電<rt>ちょうやくようでん</rt></ruby>アラーム・<ruby>違約加算<rt>いやくかさん</rt></ruby>（超約罰款）</div>
+            <div style="font-size:0.86rem;">
+              <p><strong>【原因】</strong>契約容量を超えて15分平均需量（最大需量）が超過し、2倍〜3倍の超過基本料金が発生。</p>
+              <p style="color:var(--zh-text);"><strong>【應變】</strong>①於總盤裝設「需量監視控制器（Demand Controller）」。②設定契約容量 90% 預警，自動卸載非緊急地面負載（如空壓機備機、辦公區空調），避免連續超約遭台電罰款或跳脫。</p>
+            </div>
+          </div>
+
+          <div style="background:#fff5f5; border:1px solid #fecaca; padding:1.2rem; border-radius:8px;">
+            <div style="font-weight:800; color:var(--danger); margin-bottom:0.35rem;">⚠️ 異常 3：ケーブルリール<ruby>損傷<rt>そんしょう</rt></ruby>・<ruby>坑内浸水<rt>こうないしんすい</rt></ruby></div>
+            <div style="font-size:0.86rem;">
+              <p><strong>【原因】</strong>運搬台車（バッテリーロコ）接触、湧水による接続箱（ジャンクションボックス）浸水。</p>
+              <p style="color:var(--zh-text);"><strong>【應變】</strong>①高壓電纜必須高架吊掛於隧道側壁，嚴禁拖地泡水。②接頭採用防水型（IP67 以上）並定期紅外線熱像儀檢測溫升。</p>
+            </div>
+          </div>
+
+          <div style="background:#f0fdf4; border:1px solid #bbf7d0; padding:1.2rem; border-radius:8px;">
+            <div style="font-weight:800; color:var(--success); margin-bottom:0.35rem;">⚠️ 異常 4：<ruby>電圧降下<rt>でんあつこうか</rt></ruby>によるシールド機 PLC エラー</div>
+            <div style="font-size:0.86rem;">
+              <p><strong>【原因】</strong>長距離掘進によるケーブル電圧降下、または系統瞬時電圧低下（瞬低）。</p>
+              <p style="color:var(--zh-text);"><strong>【應變】</strong>①控制回路（PLC／監測系統）必配不斷電系統（UPS）。②掘進超過 1km 時檢討坑內高壓延伸或調整變壓器分接頭（Tap）。</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ==================== TAB 5: DIALOGUE SIMULATION & SPEAKING CHUNKS ==================== -->
+    <div id="tab5" class="tab-content">
+      <div class="card">
+        <div class="card-header-block">
+          <div class="card-title-jp">💬 モジュール 05：<ruby>台電交渉<rt>たいでんこうしょう</rt></ruby>・<ruby>現場協議<rt>げんばきょうぎ</rt></ruby>の<ruby>実戦会話<rt>じっせんかいわ</rt></ruby>＆<ruby>口説組塊<rt>くちせつそかい</rt></ruby></div>
+          <div class="card-title-zh">模組 05：台電協商與日台工務會議實戰對話模擬＆口說組塊練習</div>
+        </div>
+
+        <h3 style="margin-bottom:0.6rem; color:var(--primary);">🗣️ 高頻率口說組塊 (Speaking Chunks — 點擊發音)</h3>
+        <div style="margin-bottom:1.25rem;">
+          <span class="chunk-pill" onclick="speakText('契約容量の増設審査', 'ja-JP')">契約容量の増設審査 (契約容量增設審查)</span>
+          <span class="chunk-pill" onclick="speakText('フィーダーの空き容量', 'ja-JP')">フィーダーの空き容量 (饋線剩餘容量)</span>
+          <span class="chunk-pill" onclick="speakText('高調波抑制対策', 'ja-JP')">高調波抑制対策 (諧波抑制對策)</span>
+          <span class="chunk-pill" onclick="speakText('需要率を考慮した実需量', 'ja-JP')">需要率を考慮した実需量 (考量需量因數的實際需量)</span>
+          <span class="chunk-pill" onclick="speakText('段階的な受電スケジュール', 'ja-JP')">段階的な受電スケジュール (分階段送電時程)</span>
+          <span class="chunk-pill" onclick="speakText('尖峰時段由自備發電機削峰', 'zh-TW')">尖峰時段由自備發電機削峰</span>
+          <span class="chunk-pill" onclick="speakText('請協助評估跨區饋線轉供', 'zh-TW')">請協助評估跨區饋線轉供</span>
+        </div>
+
+        <div class="dialogue-thread">
+          <!-- Bubble 1: Taipower Reviewer -->
+          <div class="chat-bubble bubble-taipower">
+            <div class="speaker-meta" style="color:#9a3412;">
+              <span>⚡ 台電區處審查承辦 (電力会社審査担当)</span>
+              <button class="audio-btn" onclick="speakText('御社が申請された臨時用電契約容量2,500キロワットですが、当地区の既設フィーダーはすでに逼迫しており、全量承認は困難です。また、シールド機のインバータによる高調波流出も懸念されます。', 'ja-JP')">🔊 JP</button>
+              <button class="audio-btn" onclick="speakText('貴公司這次申請的施工臨時用電契約容量高達兩千五百瓩，但這個區段的既有饋線已經接近滿載，沒辦法全額核准；另外潛盾機變頻器造成的諧波問題也令人擔心。', 'zh-TW')">🔊 ZH</button>
+            </div>
+            <div class="bi-jp">「<ruby>御社<rt>おんしゃ</rt></ruby>が<ruby>申請<rt>しんせい</rt></ruby>された<ruby>臨時用電<rt>りんじようでん</rt></ruby><ruby>契約容量<rt>けいやくようりょう</rt></ruby> <span class="cloze-target" onclick="this.classList.toggle('revealed')">2,500 kW</span> ですが、<ruby>当地区<rt>とうちく</rt></ruby>の<ruby>既設<rt>きせつ</rt></ruby>フィーダーはすでに<ruby>逼迫<rt>ひっぱく</rt></ruby>しており、<ruby>全量承認<rt>ぜんりょうしょうにん</rt></ruby>は<ruby>困難<rt>こんなん</rt></ruby>です。また、シールド<ruby>機<rt>き</rt></ruby>のインバータによる<ruby>高調波流出<rt>こうちょうはりゅうしゅつ</rt></ruby>も<ruby>懸念<rt>けねん</rt></ruby>されます。」</div>
+            <div class="bi-zh">「貴公司申請的施工臨時用電契約容量高達 2,500 kW，但本區段既有饋線已接近滿載，無法全額核准；此外，潛盾機變頻器產生的諧波流出也令人擔憂。」</div>
+            <div class="bi-pinyin">"Guì gōngsī shēnqǐng de shīgōng línshí yòngdiàn qìyuē róngliàng gāodá 2,500 kW, dàn běn qūduàn jìyǒu kuìxiàn yǐ jiējìn mǎnzài, wúfǎ quán'é hézhǔn."</div>
+          </div>
+
+          <!-- Bubble 2: Contractor Electrical Chief / Interpreter -->
+          <div class="chat-bubble bubble-contractor">
+            <div class="speaker-meta" style="color:#1d4ed8;">
+              <span>👷‍♂️ 施工側・電気主任＆通訳 (承商機電主管與口譯)</span>
+              <button class="audio-btn" onclick="speakText('ご懸念ありがとうございます。対策を二点提案いたします。第一に、掘進と組立の同時稼働率を見直し、初期段階の契約容量を1,600キロワットに圧縮します。第二に、アクティブフィルタを設置し、高調波基準を確実にクリアします。', 'ja-JP')">🔊 JP</button>
+              <button class="audio-btn" onclick="speakText('感謝貴處的指教，我們提出兩項具體改善方案：第一，我們重新檢討掘進與組裝的同時率，前期先申請一千六百瓩並採分期增設；第二，我們加裝主動式諧波濾波器，確保諧波失真符合台電標準。', 'zh-TW')">🔊 ZH</button>
+            </div>
+            <div class="bi-jp">「ご<ruby>懸念<rt>けねん</rt></ruby>ありがとうございます。<ruby>対策<rt>たいさく</rt></ruby>を<ruby>二点<rt>にてん</rt></ruby><ruby>提案<rt>ていあん</rt></ruby>いたします。第一に、<ruby>掘進<rt>くっしん</rt></ruby>と<ruby>組立<rt>くみたて</rt></ruby>の<ruby>同時稼働率<rt>どうじかどうりつ</rt></ruby>を<ruby>見直<rt>みなお</rt></ruby>し、<ruby>初期段階<rt>しょきだんかい</rt></ruby>の<ruby>契約容量<rt>けいやくようりょう</rt></ruby>を <span class="cloze-target" onclick="this.classList.toggle('revealed')">1,600 kW</span> に<ruby>圧縮<rt>あっしゅく</rt></ruby>します。第二に、<span class="cloze-target" onclick="this.classList.toggle('revealed')">アクティブフィルタ（APF）</span>を<ruby>設置<rt>せっち</rt></ruby>し、<ruby>高調波基準<rt>こうちょうはきじゅん</rt></ruby>を<ruby>確実<rt>かくじつ</rt></ruby>にクリアします。」</div>
+            <div class="bi-zh">「感謝貴處的提醒，我們提出兩項具體對策：第一，重新檢討掘進與組裝的同時運轉率，初期先將契約容量壓縮至 1,600 kW，採分期增設；第二，加裝主動式諧波濾波器（APF），確保諧波完全符合台電管制標準。」</div>
+            <div class="bi-pinyin">"Gǎnxiè guìchù de tíxǐng, wǒmen tíchū liǎng xiàng jùtǐ duìcè: Dìyī, chóngxīn jiǎntǎo juéjìn yǔ zǔzhuāng de tóngshí yùnzhuǎnlǜ, chūqī xiān jiāng qìyuē róngliàng yāsuō zhì 1,600 kW..."</div>
+          </div>
+
+          <!-- Bubble 3: Japanese Site Manager -->
+          <div class="chat-bubble bubble-manager">
+            <div class="speaker-meta" style="color:#854d0e;">
+              <span>🇯🇵 日籍工事所長 (日籍所長)</span>
+              <button class="audio-btn" onclick="speakText('さらに、夏月のピーク時間帯である午後四時から十時までは、地上の泥水処理設備の一部を非常用発電機で稼働させ、台電系統へのピーク負荷を削減する運用も可能です。', 'ja-JP')">🔊 JP</button>
+              <button class="audio-btn" onclick="speakText('此外，在夏季尖峰時段下午四點到晚上十點，我們也可以調度工地自備發電機來分擔地面泥水廠的部分負載，配合台電進行尖峰削峰。', 'zh-TW')">🔊 ZH</button>
+            </div>
+            <div class="bi-jp">「さらに、<ruby>夏月<rt>かげつ</rt></ruby>のピーク<ruby>時間帯<rt>じかんたい</rt></ruby>である 16:00〜22:00 は、<ruby>地上<rt>ちじょう</rt></ruby>の<ruby>泥水処理設備<rt>でいすいしょりせつび</rt></ruby>の<ruby>一部<rt>いちぶ</rt></ruby>を<span class="cloze-target" onclick="this.classList.toggle('revealed')">非常用発電機</span>で<ruby>稼働<rt>かどう</rt></ruby>させ、<ruby>台電系統<rt>たいでんけいとう</rt></ruby>へのピーク<ruby>負荷<rt>ふか</rt></ruby>を<ruby>削減<rt>さくげん</rt></ruby>する<ruby>運用<rt>うんよう</rt></ruby>も<ruby>可能<rt>かのう</rt></ruby>です。」</div>
+            <div class="bi-zh">「此外，在夏月尖峰時段（16:00~22:00），我們也可由工地自備發電機分擔地面泥水處理廠的部分負載，協助台電進行尖峰削峰。」</div>
+            <div class="bi-pinyin">"Cǐwài, zài xiàyuè jiānfēng shíduàn (16:00~22:00), wǒmen yě kě yóu gōngdì zìbèi fādiànjī fēndān dìmiàn níshuǐ chǔlǐchǎng de bùfèn fùzài, xiézhù Táidiàn jìnxíng jiānfēng xuēfēng."</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ==================== TAB 6: 4-TIER GLOSSARY & QUIZ ==================== -->
+    <div id="tab6" class="tab-content">
+      <div class="card">
+        <div class="card-header-block">
+          <div class="card-title-jp">📚 モジュール 06：4層技術用語集（電気・台電交渉）＆ 理解度テスト</div>
+          <div class="card-title-zh">模組 06：電氣工程與台電協商四層技術術語庫＆隨堂測驗</div>
+        </div>
+
+                <div class="search-box">
+          <input type="text" id="termSearch" class="search-input" placeholder="🔍 搜尋 500 筆電力用語 (日本語 / 假名 / 中文 / 拼音 / 備註)..." oninput="renderVocab()">
+          <select id="catFilter" class="filter-select" onchange="renderVocab()">
+            <option value="ALL">📂 全部分類 (500 語)</option>
+            <option value="cat1">01. 台電申請・契約・電價 (50)</option>
+            <option value="cat2">02. 受變電設備・高壓盤 (50)</option>
+            <option value="cat3">03. 變壓器・電力品質・諧波 (50)</option>
+            <option value="cat4">04. 保護電驛・計量儀表 (50)</option>
+            <option value="cat5">05. 電纜・配線・管線工程 (50)</option>
+            <option value="cat6">06. 潛盾機電氣系統 (50)</option>
+            <option value="cat7">07. 馬達・變頻器・泵浦通風 (50)</option>
+            <option value="cat8">08. 接地・防雷・坑內安全 (50)</option>
+            <option value="cat9">09. 緊急發電機・UPS・照明SCADA (50)</option>
+            <option value="cat10">10. 施工試驗・故障排除・口語 (50)</option>
+          </select>
+          <select id="levelFilter" class="filter-select" onchange="renderVocab()">
+            <option value="ALL">🏷️ 全部四層層級</option>
+            <option value="OFFICIAL">① 公式標準規範</option>
+            <option value="INDUSTRY">② 業界慣用語</option>
+            <option value="COMPANY">③ 社内用語</option>
+            <option value="SLANG">④ 現場俗稱</option>
+          </select>
+          <button class="toggle-btn" style="background:var(--secondary);border-color:var(--secondary);" onclick="exportGlossaryCSV()">📥 匯出 CSV</button>
+        </div>
+
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:0.85rem; flex-wrap:wrap; gap:0.5rem;">
+          <div id="vocabCount" style="font-weight:800; color:var(--primary); font-size:0.95rem;">顯示中：500 / 500 筆用語</div>
+          <div id="vocabPager" style="display:flex; gap:0.4rem; align-items:center; flex-wrap:wrap;"></div>
+        </div>
+
+        <div id="vocabGrid" class="grid-2"></div>
+
+        <!-- QUIZ -->
+        <h3 style="margin: 1.75rem 0 0.85rem; color: var(--primary);">
+          <span>🎯 OJT 理解度確認クイズ（即時判定・解説付き）</span>
+          <span style="font-size:0.9rem; color:var(--secondary); font-weight:normal; margin-left:0.5rem;">(OJT 隨堂測驗)</span>
+        </h3>
+
+        <div class="quiz-card" id="q1">
+          <div class="quiz-question-jp">【Q1・台電交渉】既設フィーダーの空き容量が不足し、台電から契約容量の削減や保留を求められた場合、最も効果的な技術的交渉材料はどれか？</div>
+          <div class="quiz-question-zh">【Q1・台電協商】當既有饋線容量緊繃、台電要求縮減契約容量時，最有效的技術談判籌碼為何？</div>
+          <div class="quiz-options">
+            <button class="quiz-opt-btn" onclick="checkAnswer('q1', 1, false, '總裝置容量直接加總會讓台電認定虛佔饋線容量，反而更難過關。')">
+              <div class="td-jp">A. 予備機を含む全設備容量を単純合算して再申請する</div>
+              <div class="td-zh">A. 將含備用機在內的所有設備 kW 單純加總再送審</div>
+            </button>
+            <button class="quiz-opt-btn" onclick="checkAnswer('q1', 2, true, '正確！以需量因數壓縮實需 kW、分期供電與自備發電機尖峰削峰，能直接解決台電饋線瓶頸疑慮。')">
+              <div class="td-jp">B. 需要率による実需量精算＋段階的増設＋夏月ピーク削峰を提案する</div>
+              <div class="td-zh">B. 提出需量因數精算＋分期增設＋自備發電機夏月削峰方案</div>
+            </button>
+            <button class="quiz-opt-btn" onclick="checkAnswer('q1', 3, false, '未經台電核准擅自超約用電會導致高額罰款甚至斷電處分。')">
+              <div class="td-jp">C. 小容量で申請し、現場で無断で超約運転を続ける</div>
+              <div class="td-zh">C. 先申請小容量，開工後再直接超約用電</div>
+            </button>
+            <button class="quiz-opt-btn" onclick="checkAnswer('q1', 4, false, '電纜線徑與台電饋線剩餘容量不足無直接替代關係。')">
+              <div class="td-jp">D. 坑内ケーブルの線径を太くするだけで交渉する</div>
+              <div class="td-zh">D. 僅將坑內電纜線徑加大作為談判條件</div>
+            </button>
+          </div>
+          <div class="quiz-feedback" id="q1-fb"></div>
+        </div>
+
+        <div class="quiz-card" id="q2">
+          <div class="quiz-question-jp">【Q2・電力品質】シールド機の大型インバータ（VFD）による高調波（THD）や電圧フリッカ超過を防ぐため、台電審査前に準備すべき対策はどれか？</div>
+          <div class="quiz-question-zh">【Q2・電力品質】為避免潛盾機大型變頻器（VFD）導致諧波（THD）或電壓閃爍超標遭台電退件，應採取何種對策？</div>
+          <div class="quiz-options">
+            <button class="quiz-opt-btn" onclick="checkAnswer('q2', 1, true, '正確！加裝 APF 主動濾波器與軟起動器並檢附計算書，能證明符合台電《營業規章第51條》規定。')">
+              <div class="td-jp">A. アクティブフィルタ（APF）とソフトスタータを設置し計算書を提出する</div>
+              <div class="td-zh">A. 裝設主動式諧波濾波器（APF）與軟起動器並檢附計算書</div>
+            </button>
+            <button class="quiz-opt-btn" onclick="checkAnswer('q2', 2, false, '漏電斷路器（ELB）是防感電保護，無法抑制高調波（諧波）。')">
+              <div class="td-jp">B. 漏電遮断器（ELB）の感度を上げる</div>
+              <div class="td-zh">B. 提高漏電斷路器（ELB）的靈敏度</div>
+            </button>
+            <button class="quiz-opt-btn" onclick="checkAnswer('q2', 3, false, 'MOF 僅為計量用比壓比流器，不具備濾波功能。')">
+              <div class="td-jp">C. MOF（PT/CT）の容量を大きくする</div>
+              <div class="td-zh">C. 換裝更大容量的 MOF 計量器</div>
+            </button>
+            <button class="quiz-opt-btn" onclick="checkAnswer('q2', 4, false, '發電機無法直接消除系統併聯運轉時 VFD 產生的諧波污染。')">
+              <div class="td-jp">D. 非常用発電機の燃料タンクを増設する</div>
+              <div class="td-zh">D. 擴充緊急發電機的柴油儲槽</div>
+            </button>
+          </div>
+          <div class="quiz-feedback" id="q2-fb"></div>
+        </div>
+
+        <div class="quiz-card" id="q3">
+          <div class="quiz-question-jp">【Q3・坑内安全】湧水のあるトンネル坑内で仮設電気設備の点検・修理を行う際、絶対に遵守すべき手順はどれか？</div>
+          <div class="quiz-question-zh">【Q3・坑內安全】在潮濕滲水的隧道坑內進行臨時電氣設備檢修時，絕對必須遵守的步驟為何？</div>
+          <div class="quiz-options">
+            <button class="quiz-opt-btn" onclick="checkAnswer('q3', 1, false, '潮濕坑內嚴禁活電作業，絕不可只戴普通棉紗手套觸碰。')">
+              <div class="td-jp">A. 軍手を着用し、通電したまま素早く作業する</div>
+              <div class="td-zh">A. 戴上棉紗手套，趁通電狀態快速檢修</div>
+            </button>
+            <button class="quiz-opt-btn" onclick="checkAnswer('q3', 2, false, '僅口頭通知極易發生誤送電事故，必須執行實體上鎖掛牌。')">
+              <div class="td-jp">B. 口頭で「電源切るな」と伝えて作業する</div>
+              <div class="td-zh">B. 僅口頭交代「不要送電」即開始作業</div>
+            </button>
+            <button class="quiz-opt-btn" onclick="checkAnswer('q3', 3, true, '正確！LOTO 上鎖掛牌＋驗電確認無電＋掛設接地線，是坑內電氣檢修的非妥協安全鐵則。')">
+              <div class="td-jp">C. 遮断・LOTO（施錠・札掛け）・検電・接地を実施してから作業する</div>
+              <div class="td-zh">C. 確實斷電、執行 LOTO 上鎖掛牌、驗電確認歸零並掛設接地線</div>
+            </button>
+            <button class="quiz-opt-btn" onclick="checkAnswer('q3', 4, false, '絕不可跳接或拆除漏電斷路器（ELB）。')">
+              <div class="td-jp">D. 頻繁に落ちるため漏電遮断器（ELB）をバイパスする</div>
+              <div class="td-zh">D. 因經常跳電而將漏電斷路器旁路跳接</div>
+            </button>
+          </div>
+          <div class="quiz-feedback" id="q3-fb"></div>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <footer>
+    <strong>📖 依據與官方參考資料 (Grounded References)：</strong>
+    <a href="https://www.taipower.com.tw/2289/2484/51434/51760/" target="_blank">台灣電力公司《營業規章》</a> ｜
+    <a href="https://www.taipower.com.tw/2289/2290/2318/38268/" target="_blank">台電《新增設用電計畫書》</a> ｜
+    <a href="https://www.tteca.org.tw/doc/member/%E5%8F%B0%E7%81%A3%E9%9B%BB%E5%8A%9B%E5%85%AC%E5%8F%B8%E3%80%8C%E9%AB%98%E5%A3%93%E4%BB%A5%E4%B8%8B%E7%94%A8%E6%88%B6%E7%94%A8%E9%9B%BB%E8%A8%AD%E5%82%99%E8%A8%AD%E8%A8%88%E8%B3%87%E6%96%99%E5%AF%A9%E6%9F%A5%E4%BD%9C%E6%A5%AD%E6%A8%99%E6%BA%96%E3%80%8D.pdf" target="_blank">台電《高壓以下用戶用電設備設計資料審查作業標準》</a> ｜
+    <a href="https://www.aim.org.tw/upload/news/file/1772093229.pdf" target="_blank">台電《營業規章第51條（電壓閃爍及諧波管制）》</a> ｜
+    <a href="https://www-ws.gov.taipei/001/Upload/342/relfile/10173/8295723/5d26d83b-d25c-416c-9dc1-1ce165944126.pdf" target="_blank">台電《新增設用戶用電設備檢驗要點》</a>
+  </footer>
+
+  <script>
+    const GLOSSARY_TERMS = [["cat1", "OFFICIAL", "契約容量", "けいやくようりょう", "契約容量", "Qìyuē róngliàng", "台電核定之最高需量基準 (kW)"], ["cat1", "OFFICIAL", "臨時用電", "りんじようでん", "臨時用電", "Línshí yòngdiàn", "施工期間申請之短期供電"], ["cat1", "OFFICIAL", "經常契約容量", "けいじょうけいやくようりょう", "經常契約容量", "Jīngcháng qìyuē róngliàng", "全天候適用之基本契約容量"], ["cat1", "OFFICIAL", "半尖峰契約容量", "はんせんぽうけいやくようりょう", "半尖峰契約容量", "Bàn jiānfēng qìyuē róngliàng", "半尖峰時段另行約定之容量"], ["cat1", "OFFICIAL", "離峰契約容量", "りほうけいやくようりょう", "離峰契約容量", "Lífēng qìyuē róngliàng", "離峰時段（夜間/假日）約定容量"], ["cat1", "OFFICIAL", "新增設用電計畫書", "しんきぞうせつようでんけいかくしょ", "新增設用電計畫書", "Xīnzēngshè yòngdiàn jìhuàshū", "高壓用電必備之台電審查文件"], ["cat1", "OFFICIAL", "高圧電力", "こうあつでんりょく", "高壓電力", "Gāoyā diànlì", "11.4kV 或 22.8kV 供電等級"], ["cat1", "OFFICIAL", "特高圧電力", "とくこうあつでんりょく", "特高壓電力", "Tègāoyā diànlì", "69kV / 161kV 以上供電等級"], ["cat1", "OFFICIAL", "低圧電力", "ていあつでんりょく", "低壓電力", "Dīyā diànlì", "220V / 380V 供電等級"], ["cat1", "OFFICIAL", "表灯用電", "ひょうとうようでん", "表燈用電", "Biǎodēng yòngdiàn", "工務所照明或小型器具用電"], ["cat1", "OFFICIAL", "責任分界点", "せきにんぶんかいてん", "責任分界點", "Zérèn fēnjièdiǎn", "台電與用戶產權及維護分界"], ["cat1", "OFFICIAL", "線路設置費", "せんろせっちひ", "線路設置費", "Xiànlù shèzhìfèi", "新設或增設容量須繳交台電之費用"], ["cat1", "OFFICIAL", "供電容量設置費", "きょうでんようりょうせっちひ", "供電容量設置費", "Gōngdiàn róngliàng shèzhìfèi", "依申請 kW 數計算之費用"], ["cat1", "OFFICIAL", "新建長度設置費", "しんきちょうさせっちひ", "新建長度設置費", "Xīnjiàn chángdù shèzhìfèi", "依外線延伸長度計算之費用"], ["cat1", "OFFICIAL", "営業規章", "えいぎょうきしょう", "營業規章", "Yíngyè guīzhāng", "台電供電與計費之最高準則"], ["cat1", "OFFICIAL", "時間電價", "じかんでんか", "時間電價", "Shíjiān diànjià", "依尖峰/半尖峰/離峰區分費率"], ["cat1", "OFFICIAL", "夏月電價", "かげつでんか", "夏月電價", "Xiàyuè diànjià", "6月1日至9月30日適用費率"], ["cat1", "OFFICIAL", "非夏月電價", "ひかげつでんか", "非夏月電價", "Fēi xiàyuè diànjià", "10月1日至隔年5月31日適用費率"], ["cat1", "OFFICIAL", "尖峰時段", "せんぽうじかんたい", "尖峰時段", "Jiānfēng shíduàn", "電網負載最高、電價最貴時段"], ["cat1", "OFFICIAL", "離峰時段", "りほうじかんたい", "離峰時段", "Lífēng shíduàn", "夜間及週日全天低負載時段"], ["cat1", "OFFICIAL", "基本電費", "きほんでんひ", "基本電費", "Jīběn diànfèi", "依契約容量固定計收之費用"], ["cat1", "OFFICIAL", "流動電費", "りゅうどうでんひ", "流動電費", "Liúdòng diànfèi", "依實際用電度數 (kWh) 計收"], ["cat1", "OFFICIAL", "超約附加費", "ちょうやくふかひ", "超約附加費", "Chāoyuē fùjiāfèi", "超過契約容量之2倍至3倍罰款"], ["cat1", "OFFICIAL", "最高需量", "さいこうじゅりょう", "最高需量", "Zuìgāo xūliàng", "每15分鐘平均用電最高值 (kW)"], ["cat1", "INDUSTRY", "需要率", "じゅようりつ", "需量因數", "Xūliàng yīnshù", "最大需量除以總裝置容量之比值"], ["cat1", "INDUSTRY", "不等率", "ふとうりつ", "不等率 (參差因數)", "Bùděnglǜ", "各負載最大需量總和除以合成最大需量"], ["cat1", "INDUSTRY", "負荷率", "ふかりつ", "負載因數", "Fùzài yīnshù", "平均負載除以最大需量之百分比"], ["cat1", "INDUSTRY", "同時稼働率", "どうじかどうりつ", "同時運轉率", "Tóngshí yùnzhuǎnlǜ", "設備同時滿載運轉之比例"], ["cat1", "OFFICIAL", "備用電力", "よびでんりょく", "備用電力", "Bèiyòng diànlì", "雙迴路或備援供電契約"], ["cat1", "OFFICIAL", "暫停用電", "ざんていようでん", "暫停用電", "Zàntíng yòngdiàn", "暫停部分或全部契約容量（最長2年）"], ["cat1", "OFFICIAL", "廢止用電", "はいしようでん", "廢止用電", "Fèizhǐ yòngdiàn", "完工後辦理拆表終止用電"], ["cat1", "OFFICIAL", "分戶用電", "ぶんこようでん", "分戶用電", "Bùnhù yòngdiàn", "將單一電號拆分為多戶計量"], ["cat1", "OFFICIAL", "併戶用電", "へいこようでん", "併戶用電", "Bìnghù yòngdiàn", "將多組電號合併為單一高壓戶"], ["cat1", "OFFICIAL", "增設用電", "ぞうせつようでん", "增設用電", "Zēngshè yòngdiàn", "既設用戶申請增加契約容量"], ["cat1", "OFFICIAL", "用電變更", "ようでんへんこう", "用電變更", "Yòngdiàn biàngēng", "變更戶名、用途或供電方式"], ["cat1", "OFFICIAL", "報竣工", "しゅんこうほうこく", "報竣工", "Bào jùngōng", "工程完工向台電申請檢驗送電"], ["cat1", "OFFICIAL", "檢驗送電", "けんえんそうでん", "檢驗送電", "Jiǎnyàn sòngdiàn", "台電派員查驗合格後掛表送電"], ["cat1", "OFFICIAL", "圖審", "ずしん", "圖審 (設計資料審查)", "Túshěn", "高壓用電單線圖送台電審查"], ["cat1", "OFFICIAL", "預審", "よしん", "預審", "Yùshěn", "配電場所初步配置審查"], ["cat1", "OFFICIAL", "正審", "せいしん", "正審", "Zhèngshěn", "配電場所正式圖面審查"], ["cat1", "OFFICIAL", "配電場所", "はいでんばしょ", "配電場所", "Pèidiàn chǎngsuǒ", "用戶提供台電設置變壓器之空間"], ["cat1", "INDUSTRY", "饋線容量", "ふぃーだーようりょう", "饋線容量", "Kuìxiàn róngliàng", "變電所引出配電線路承載上限"], ["cat1", "INDUSTRY", "饋線轉供", "ふぃーだーてんきょう", "饋線轉供", "Kuìxiàn zhuǎngōng", "將負載切換至鄰近有餘裕饋線"], ["cat1", "INDUSTRY", "虛占容量", "きょせんようりょう", "虛佔容量", "Xūzhàn róngliàng", "申請過大卻未實際使用之保留容量"], ["cat1", "OFFICIAL", "需量反應", "じゅようはんのう", "需量反應", "Xūliàng fǎnyìng", "配合台電抑低尖峰用電之獎勵方案"], ["cat1", "COMPANY", "尖峰削峰", "ぴーくかっと", "尖峰削峰", "Jiānfēng xuēfēng", "尖峰時段改以發電機或卸載降低需量"], ["cat1", "COMPANY", "分期供電", "ぶんききょうでん", "分期供電", "Bùnqī gōngdiàn", "依施工階段分批申請送電容量"], ["cat1", "OFFICIAL", "電號", "でんごう", "電號", "Diànhào", "台電用戶唯一識別編號"], ["cat1", "OFFICIAL", "區營業處", "くえいぎょうしょ", "區營業處", "Qū yíngyèchù", "台電各地區受理申請之營業單位"], ["cat1", "OFFICIAL", "加強電力網", "きょうかでんりょくもう", "加強電力網", "Jiāqiáng diànlìwǎng", "既有電網不足時須進行之強化工程"], ["cat2", "OFFICIAL", "受変電設備", "じゅへんでんせつび", "受變電設備", "Shòubiàndiàn shèbèi", "接收台電高壓並降壓分配之總成"], ["cat2", "INDUSTRY", "高圧配電盤", "こうあつはいでんばん", "高壓配電盤", "Gāoyā pèidiànpán", "容納高壓斷路器與電驛之盤體"], ["cat2", "INDUSTRY", "真空遮断器", "しんくうしゃだんき", "真空斷路器 (VCB)", "Zhēnkōng duànlùqì", "於真空滅弧室中啟斷高壓電流"], ["cat2", "INDUSTRY", "ガス絶縁開閉装置", "がすぜつえんかいへいそうち", "氣體絕緣開關 (GIS)", "Qìtǐ juéyuán kāiguān", "以 SF6 氣體絕緣之緊湊型高壓開關"], ["cat2", "INDUSTRY", "気中遮断器", "きちゅうしゃだんき", "空氣斷路器 (ACB)", "Kōngqì duànlùqì", "低壓主盤大電流用之斷路器"], ["cat2", "INDUSTRY", "負荷開閉器", "ふかかいへいき", "負載啟斷開關 (LBS)", "Fùzài qǐduàn kāiguān", "可啟斷正常負載電流之高壓開關"], ["cat2", "INDUSTRY", "高圧気中開閉器", "こうあつきちゅうかいへいき", "高壓空氣開關 (PAS)", "Gāoyā kōngqì kāiguān", "常設於責任分界點之柱上或屋外開關"], ["cat2", "INDUSTRY", "断路器", "だんろき", "隔離開關 (DS)", "Gélí kāiguān", "無負載時隔離電源用之可見斷點"], ["cat2", "INDUSTRY", "電力ヒューズ", "でんりょくひゅーず", "高壓電力熔絲 (PF)", "Gāoyā diànlì róngsī", "高壓短路過電流一次側保護熔絲"], ["cat2", "INDUSTRY", "避雷器", "ひらいき", "避雷器 (LA / SA)", "Bìléiqì", "吸收雷擊或開關突波之過電壓保護"], ["cat2", "INDUSTRY", "接地開閉器", "せっちかいへいき", "接地開關 (ES)", "Jiēdì kāiguān", "檢修時將高壓匯流排確實接地"], ["cat2", "INDUSTRY", "母線", "ぼせん", "匯流排 (Busbar)", "Huìliúpái", "配電盤內分配大電流之銅排/鋁排"], ["cat2", "INDUSTRY", "銅ブスバー", "どうぶすばー", "銅匯流排", "Tóng huìliúpái", "高導電性主幹線銅排"], ["cat2", "INDUSTRY", "主遮断盤", "しゅしゃだんばん", "主斷路器盤", "Zhǔ duànlùqìpán", "受電進線第一道總保護盤"], ["cat2", "INDUSTRY", "計量盤", "けいりょうばん", "計量盤 (MOF盤)", "Jìliàngpán", "安裝台電比壓比流器之封印盤"], ["cat2", "INDUSTRY", "フィーダー盤", "ふぃーだーばん", "饋線盤", "Kuìxiànpán", "分送至各區域變壓器之出線盤"], ["cat2", "INDUSTRY", "引出形遮断器", "ひきだしがたしゃだんき", "抽屜式斷路器", "Chōutìshì duànlùqì", "可拉出至試驗或隔離位置檢修"], ["cat2", "INDUSTRY", "インターロック", "いんたーろっく", "機械/電氣互鎖", "Hùsuǒ", "防止誤操作（如帶負載拉 DS）之鎖定"], ["cat2", "INDUSTRY", "キュービクル", "きゅーびくる", "箱式變電站 (Cubicle)", "Xiāngshì biàndiànzhàn", "金屬密閉一體化受變電箱體"], ["cat2", "INDUSTRY", "変電室", "へんでんしつ", "受變電室", "Shòubiàndiànshì", "設置高壓設備之專用管制空間"], ["cat2", "INDUSTRY", "モールドケース遮断器", "もーるどけーすしゃだんき", "無熔絲開關 (MCCB/NFB)", "Wúróngsī kāiguān", "低壓幹線與分路過電流保護"], ["cat2", "INDUSTRY", "漏電遮断器", "ろうでんしゃだんき", "漏電斷路器 (ELB/ELCB)", "Lòudiàn duànlùqì", "偵測零相電流跳脫防感電"], ["cat2", "INDUSTRY", "電磁接触器", "でんじせっしょくき", "電磁接觸器 (MC)", "Diàncí jiēchùqì", "遠端頻繁啟閉馬達主迴路"], ["cat2", "INDUSTRY", "サーマルリレー", "さーまるりれー", "積熱電驛 (TH-RY)", "Jīrè diànyì", "保護馬達免於長時間過載燒毀"], ["cat2", "INDUSTRY", "マグネットスイッチ", "まぐねっとすいっち", "電磁開關 (MS)", "Diàncí kāiguān", "接觸器與積熱電驛之組合"], ["cat2", "INDUSTRY", "自動力率調整盤", "じどうりきりつちょうせいばん", "自動功因調整盤 (APFR)", "Zìdòng gōngyīn tiáozhěngpán", "自動投入電容器改善功率因數"], ["cat2", "INDUSTRY", "進相コンデンサ", "しんそうこんでんさ", "進相電容器 (SC)", "Jìnxiàng diànróngqì", "提供無效電力補償感性負載"], ["cat2", "INDUSTRY", "直列リアクトル", "ちょくれつりあくとる", "串聯電抗器 (SR)", "Chuànlián diànkàngqì", "抑制電容器投入突波與諧波共振"], ["cat2", "INDUSTRY", "分電盤", "ぶんでんばん", "分電盤", "Bùndiànpán", "坑內或地面各區低壓分支配電箱"], ["cat2", "INDUSTRY", "動力盤", "どうりょくばん", "動力控制盤 (MCC)", "Dònglì kòngzhìpán", "集中控制馬達啟停之標準盤"], ["cat2", "INDUSTRY", "仮設分電盤", "かせつぶんでんばん", "臨時分電箱", "Línshí bùndiànxiāng", "工地現場移動式防水配電箱"], ["cat2", "INDUSTRY", "防爆型開閉器", "ぼうばくがたかいへいき", "防爆型開關", "Fángbàoxíng kāiguān", "有沼氣或可燃氣體隧道專用"], ["cat2", "INDUSTRY", "絶縁監視装置", "ぜつえんかんしそうち", "絕緣監測裝置", "Juéyuán jiāncè zhuāngzhì", "即時監控系統對地絕緣阻抗"], ["cat2", "INDUSTRY", "検相器", "けんそうき", "相序計", "Xiàngxùjì", "確認三相 R-S-T 相序是否正確"], ["cat2", "INDUSTRY", "位相確認", "いそうかくにん", "核相", "Héxiàng", "雙電源併聯或切替前確認相位一致"], ["cat2", "INDUSTRY", "端子台", "たんしだい", "端子台", "Duānzǐtái", "盤內控制線與動力線接續排"], ["cat2", "INDUSTRY", "圧着端子", "あっちゃくたんし", "壓著端子", "Yāzhù duānzǐ", "導線末端壓接銅鼻頭"], ["cat2", "INDUSTRY", "ケーブルヘッド", "けーぶるへっど", "高壓電纜終端處理頭", "Gāoyā diànlǎn zhōngduān", "高壓交連PE電纜應力錐處理"], ["cat2", "INDUSTRY", "ストレスコーン", "すとれすこーん", "應力錐", "Yīnglìzhuī", "均勻高壓電纜末端電場防止擊穿"], ["cat2", "INDUSTRY", "アークフラッシュ", "あーくふらっしゅ", "電弧閃光", "Diànhú shǎnguāng", "高壓盤短路瞬間產生的高溫爆閃"], ["cat2", "INDUSTRY", "短絡容量", "たんらくようりょう", "短路容量 (kA)", "Duǎnlù róngliàng", "開關設備可安全啟斷之最大故障電流"], ["cat2", "INDUSTRY", "遮断容量", "しゃだんようりょう", "啟斷容量 (IC)", "Qǐduàn róngliàng", "斷路器不損壞下之最大啟斷電流"], ["cat2", "INDUSTRY", "定格電圧", "ていかくでんあつ", "額定電壓", "Édìng diànyā", "設備設計可長期承受之電壓"], ["cat2", "INDUSTRY", "定格電流", "ていかくでんりゅう", "額定電流", "Édìng diànliú", "設備設計可長期通過之電流"], ["cat2", "INDUSTRY", "保護等級", "ほごとうきゅう", "防護等級 (IP碼)", "Fánghù děngjí", "防塵與防水能力標示（如 IP65）"], ["cat2", "INDUSTRY", "盤内ヒーター", "ばんないひーたー", "盤內除濕加熱器", "Pánnèi chúshī jiārèqì", "防止隧道潮濕導致高壓盤結露閃絡"], ["cat2", "INDUSTRY", "サーモスタット", "さーもすたっと", "溫控開關", "Wēnkòng kāiguān", "控制盤內風扇與除濕加熱器"], ["cat2", "INDUSTRY", "表示灯", "ひょうじとう", "指示燈", "Zhǐshìdēng", "盤面紅(投入)綠(跳脫)黃(異常)燈"], ["cat2", "INDUSTRY", "非常停止ボタン", "ひじょうていしぼたん", "緊急停止按鈕 (EMO)", "Jǐnjí tíngzhǐ ànniǔ", "紅色蘑菇頭急停開關"], ["cat2", "COMPANY", "盤改造", "ばんかいぞう", "改盤 / 盤體修改", "Gǎipán", "現場依需求變更配電盤內部元件"], ["cat3", "INDUSTRY", "主変圧器", "しゅへんあつき", "主變壓器 (Main Tr)", "Zhǔ biànyāqì", "將台電高壓降為工地所需中低壓"], ["cat3", "INDUSTRY", "モールド変圧器", "もーるどへんあつき", "模鑄式乾式變壓器", "Mózhùshì biànyāqì", "無油防火，適合地下坑內設置"], ["cat3", "INDUSTRY", "油入変圧器", "ゆいりへんあつき", "油浸式變壓器", "Yóujìnshì biànyāqì", "散熱佳但有漏油起火風險，限地面"], ["cat3", "INDUSTRY", "乾式変圧器", "かんしきへんあつき", "乾式變壓器", "Gānshì biànyāqì", "以空氣或樹脂絕緣，免油檢修"], ["cat3", "INDUSTRY", "変圧器容量", "へんあつきようりょう", "變壓器容量 (kVA)", "Biànyāqì róngliàng", "變壓器視在功率額定值"], ["cat3", "INDUSTRY", "タップ切換器", "たっぷきりかえき", "分接頭切換器 (Tap)", "Fēnjiētóu qiēhuànqì", "微調變壓器二次側輸出電壓"], ["cat3", "INDUSTRY", "無負荷時電圧調整", "むふかじでんあつちょうせい", "無載分接頭調整 (NLTC)", "Wúzài fēnjiētóu tiáozhěng", "須斷電後方能調整變壓器分接頭"], ["cat3", "INDUSTRY", "負荷時電圧調整", "ふかじでんあつちょうせい", "有載分接頭調整 (OLTC)", "Yǒuzài fēnjiētóu tiáozhěng", "不停電自動穩壓調整"], ["cat3", "INDUSTRY", "絶縁油", "ぜつえんゆ", "絕緣油", "Juéyuányóu", "油浸變壓器內部冷卻與絕緣介質"], ["cat3", "INDUSTRY", "ブッフホルツ継電器", "ぶっふほるつけいでんき", "布氏電驛 (瓦斯電驛)", "Bùshì diànyì", "偵測油浸變壓器內部故障氣體"], ["cat3", "INDUSTRY", "巻線温度計", "まきせんおんどけい", "線圈溫度計 (WTI)", "Xiànquān wēndùjì", "監測變壓器內部銅線繞組溫度"], ["cat3", "INDUSTRY", "冷却ファン", "れいきゃくふぁん", "強制冷卻風扇", "Qiángzhì lěngquè fēngshàn", "高負載時啟動降溫提升裕度"], ["cat3", "INDUSTRY", "励磁突入電流", "れいじとつにゅうでんりゅう", "激磁湧流", "Jīcí yǒngliú", "變壓器送電瞬間產生之大電流"], ["cat3", "INDUSTRY", "インピーダンス電圧", "いんぴーだんすでんあつ", "百分率阻抗 (%Z)", "Bǎifēnlǜ zǔkàng", "決定變壓器短路電流大小之參數"], ["cat3", "INDUSTRY", "ベクトル群", "べくとるぐん", "結線向量群 (Dyn11)", "Jiéxiàn xiàngliàngqún", "一次與二次側相位角差標示"], ["cat3", "INDUSTRY", "デルタスター結線", "でるたすたーけっせん", "Δ-Y 結線", "Sānjiǎo xīngxíng jiéxiàn", "高壓側Δ、低壓側Y接地之常見結線"], ["cat3", "INDUSTRY", "中性線", "ちゅうせいせん", "中性線 (N相)", "Zhōngxìngxiàn", "三相四線式系統提供單相電壓迴路"], ["cat3", "INDUSTRY", "有効電力", "ゆうこうでんりょく", "實功率 / 有效電力 (kW)", "Shígōnglǜ", "實際作功轉化為機械能或熱能"], ["cat3", "INDUSTRY", "無効電力", "むこうでんりょく", "虛功率 / 無效電力 (kVAR)", "Xūgōnglǜ", "建立馬達磁場所需之往復能量"], ["cat3", "INDUSTRY", "皮相電力", "ひそうでんりょく", "視在功率 (kVA)", "Shìzài gōnglǜ", "實功率與虛功率之向量和"], ["cat3", "INDUSTRY", "力率", "りきりつ", "功率因數 (PF)", "Gōnglǜ yīnshù", "實功率除以視在功率 (cosθ)"], ["cat3", "OFFICIAL", "力率割引・割増", "りきりつわりびき・わりまし", "功因獎懲電費", "Gōngyīn jiǎngchéng diànfèi", "台電規定低於80%加收、高於80%減收"], ["cat3", "OFFICIAL", "高調波", "こうちょうは", "諧波 (Harmonics)", "Xiébō", "非線性負載產生之工頻整數倍頻率"], ["cat3", "OFFICIAL", "総合高調波歪率", "そうごうこうちょうはわいりつ", "總諧波失真率 (THD)", "Zǒng xiébō shīzhēnlǜ", "評估電壓/電流波形畸變程度"], ["cat3", "INDUSTRY", "アクティブフィルタ", "あくてぃぶふぃるた", "主動式諧波濾波器 (APF)", "Zhǔdòngshì xiébō lǜbōqì", "即時注入反相電流抵銷諧波"], ["cat3", "INDUSTRY", "パッシブフィルタ", "ぱっしぶふぃるた", "被動式濾波器", "Bèidòngshì lǜbōqì", "LC 調諧迴路濾除特定次諧波"], ["cat3", "INDUSTRY", "12パルス整流", "じゅうにぱるすせいりゅう", "12脈波整流", "Shí'èr màibō zhěngliú", "透過移相變壓器大幅降低5/7次諧波"], ["cat3", "INDUSTRY", "アクティブフロントエンド", "あくてぃぶふろんとえんど", "主動式前端變頻器 (AFE)", "Zhǔdòngshì qiánduān biànpínqì", "極低諧波且支援再生煞車回饋"], ["cat3", "OFFICIAL", "電圧フリッカ", "でんあつふりっか", "電壓閃爍", "Diànyā shǎnshuò", "負載劇烈變動導致電壓快速波動"], ["cat3", "INDUSTRY", "電圧降下", "でんあつこうか", "電壓降 (Voltage Drop)", "Diànyā jiàng", "長距離電纜阻抗造成末端電壓降低"], ["cat3", "INDUSTRY", "瞬時電圧低下", "しゅんじでんあつていか", "瞬時電壓驟降 (瞬降/Sag)", "Shùnshí diànyā zhòujiàng", "系統短路造成短暫低壓導致設備跳脫"], ["cat3", "INDUSTRY", "不平衡率", "ふへいこうりつ", "三相不平衡率", "Sānxiàng bùpínghénglǜ", "三相負載分配不均導致中性線電流過大"], ["cat3", "INDUSTRY", "ゼロ相電流", "ぜろそうでんりゅう", "零相電流 (I0)", "Língxiàng diànliú", "三相向量和不為零，代表有漏電或接地"], ["cat3", "INDUSTRY", "電力品質解析", "でんりょくひんしつかいせき", "電力品質分析", "Diànlì pǐnzhì fēnxī", "以記錄儀量測電壓、諧波與閃爍"], ["cat3", "INDUSTRY", "パワーアナライザ", "ぱわーあならいざ", "電力品質分析儀", "Diànlì pǐnzhì fēnxīyí", "查驗台電基準合規與故障診斷儀器"], ["cat3", "INDUSTRY", "リアクトル", "りあくとる", "電抗器", "Diànkàngqì", "限制短路電流或濾波用電感線圈"], ["cat3", "INDUSTRY", "中性点接地抵抗器", "ちゅうせいてんせっちていこうき", "中性點接地電阻器 (NGR)", "Zhōngxìngdiǎn jiēdì diànzǔqì", "限制單相接地故障電流保護設備"], ["cat3", "INDUSTRY", "過電圧", "かでんあつ", "過電壓", "Guòdiànyā", "系統電壓超過額定容許上限"], ["cat3", "INDUSTRY", "不足電圧", "ふそくでんあつ", "低電壓 / 欠電壓", "Dīdiànyā", "電壓過低導致馬達過熱或接觸器跳脫"], ["cat3", "INDUSTRY", "欠相", "けっそう", "欠相 (缺相)", "Quēxiàng", "三相電源少一相導致馬達燒毀"], ["cat3", "INDUSTRY", "逆相", "ぎゃくそう", "逆相", "Nìxiàng", "三相相序接反導致馬達反轉"], ["cat3", "INDUSTRY", "サージアブソーバ", "さーじあぶそーば", "突波吸收器", "Tūbō xīshōuqì", "保護變頻器與PLC免受開關突波損壞"], ["cat3", "INDUSTRY", "絶縁階級", "ぜつえんかいきゅう", "絕緣等級 (F級/H級)", "Juéyuán děngjí", "變壓器或馬達繞組耐熱溫度等級"], ["cat3", "INDUSTRY", "無負荷損", "むふかそん", "無載損失 (鐵損)", "Wúzài sǔnshī", "變壓器通電即持續消耗之鐵心損耗"], ["cat3", "INDUSTRY", "負荷損", "ふかそん", "負載損失 (銅損)", "Fùzài sǔnshī", "電流通過線圈產生之 I²R 熱損耗"], ["cat3", "INDUSTRY", "調相設備", "ちょうそうせつび", "無效電力補償設備", "Wúxiào diànlì bǔcháng shèbèi", "維持電網電壓穩定之補償裝置"], ["cat3", "INDUSTRY", "静電容量", "せいでんようりょう", "靜電容量 (電容值)", "Jìngdiàn róngliàng", "長距離高壓電纜之充電電流來源"], ["cat3", "INDUSTRY", "線間電圧", "せんかんでんあつ", "線電壓 (V_LL)", "Xiàndiànyā", "任意兩相線間之電壓（如380V）"], ["cat3", "INDUSTRY", "相電圧", "そうでんあつ", "相電壓 (V_LN)", "Xiàngdiànyā", "任一相線對中性線電壓（如220V）"], ["cat3", "SLANG", "電源が暴れる", "でんげんがあばれる", "電壓不穩 / 飄移", "Diànyā bùwěn", "現場指電壓劇烈波動影響機器"], ["cat4", "OFFICIAL", "保護電駅", "ほごでんえき", "保護電驛 (Relay)", "Bǎohù diànyì", "偵測電力異常並下令斷路器跳脫"], ["cat4", "OFFICIAL", "保護協調", "ほごきょうちょう", "保護電驛協調", "Bǎohù diànyì xiétiáo", "確保末端故障不致越級跳脫主盤"], ["cat4", "OFFICIAL", "整定値", "せいていち", "標置值 / 設定值", "Biāozhìzhí", "電驛啟動電流與延時時間參數"], ["cat4", "INDUSTRY", "過電流継電器", "かでんりゅうけいでんき", "過電流電驛 (50/51)", "Guòdiànliú diànyì", "50瞬時過流、51反時限過流保護"], ["cat4", "INDUSTRY", "地絡過電流継電器", "ちらくかでんりゅうけいでんき", "接地過電流電驛 (50N/51N)", "Jiēdì guòdiànliú diànyì", "偵測接地故障電流跳脫保護"], ["cat4", "INDUSTRY", "地絡方向継電器", "ちらくほうこうけいでんき", "方向性接地電驛 (67N)", "Fāngxiàngxìng jiēdì diànyì", "判斷接地故障電流方向避免誤動作"], ["cat4", "INDUSTRY", "過電圧継電器", "かでんあつけいでんき", "過電壓電驛 (59)", "Guòdiànyā diànyì", "系統電壓異常過高時動作"], ["cat4", "INDUSTRY", "不足電圧継電器", "ふそくでんあつけいでんき", "低電壓電驛 (27)", "Dīdiànyā diànyì", "停電或電壓驟降時切離大負載"], ["cat4", "INDUSTRY", "地絡過電圧継電器", "ちらくかでんあつけいでんき", "零相過電壓電驛 (64 / 59N)", "Língxiàng guòdiànyā diànyì", "非接地系統偵測單相接地用"], ["cat4", "INDUSTRY", "逆電力継電器", "ぎゃくでんりょくけいでんき", "逆電力電驛 (32)", "Nìdiànlì diànyì", "防止自備發電機電力逆送至台電系統"], ["cat4", "INDUSTRY", "比率差動継電器", "ひりつさどうけいでんき", "比率差動電驛 (87)", "Bǐlǜ chādòng diànyì", "主變壓器或匯流排內部故障高速保護"], ["cat4", "INDUSTRY", "ロックアウトリレー", "ろっくあうとりれー", "閉鎖電驛 (86)", "Bìsuǒ diànyì", "重大故障跳脫後須人工手動復歸"], ["cat4", "INDUSTRY", "欠相・逆相継電器", "けっそう・ぎゃくそうけいでんき", "欠相/逆相電驛 (47)", "Quēxiàng nìxiàng diànyì", "保護潛盾機泵浦與風機不反轉"], ["cat4", "INDUSTRY", "計器用変流器", "けいきようへんりゅうき", "比流器 (CT)", "Bǐliúqì", "將大電流按比例降為 5A 或 1A 計量"], ["cat4", "INDUSTRY", "計器用変圧器", "けいきようへんあつき", "比壓器 (PT / VT)", "Bǐyāqì", "將高壓按比例降為 110V 計量與保護"], ["cat4", "INDUSTRY", "零相変流器", "ぜろそうへんりゅうき", "零相比流器 (ZCT)", "Língxiàng bǐliúqì", "貫穿三相導線偵測漏電不平衡電流"], ["cat4", "OFFICIAL", "計器用変成器", "けいきようへんせいき", "比壓比流器組 (MOF)", "Bǐyā bǐliúqì zǔ", "台電高壓電表計費專用一體式變比器"], ["cat4", "INDUSTRY", "電力量計", "でんりょくりょうけい", "電度表 / 瓦時計 (kWh)", "Diàndùbiǎo", "累計計算消耗之有效電能度數"], ["cat4", "INDUSTRY", "無効電力量計", "むこうでんりょくりょうけい", "乏時計 (kVARh)", "Fáshíjì", "累計計算無效電能以核算功率因數"], ["cat4", "OFFICIAL", "記録型電力量計", "きろくがたでんりょくりょうけい", "紀錄型電子式電表 (AMI)", "Jìlùxíng diànbiǎo", "台電高壓智慧電表，記錄15分需量"], ["cat4", "INDUSTRY", "デマンドコントローラ", "でまんどこんとろーら", "需量監視控制器", "Xūliàng jiānkòng kòngzhìqì", "即時監控15分鐘需量防止超約"], ["cat4", "INDUSTRY", "マルチメーター", "まるちめーたー", "數位集合式電表", "Shùwèi jíhéshì diànbiǎo", "同時顯示V/A/kW/kVA/PF/THD"], ["cat4", "INDUSTRY", "クランプメータ", "くらんぷめーた", "鉤表 (電流鉤表)", "Gōubiǎo", "免斷線夾取導線量測交流/直流電流"], ["cat4", "INDUSTRY", "絶縁抵抗計", "ぜつえんていこうけい", "絕緣電阻計 (Megger)", "Juéyuán diànzǔjì", "施加高直流電壓測試電纜絕緣 (MΩ)"], ["cat4", "INDUSTRY", "接地抵抗計", "せっちていこうけい", "接地電阻計", "Jiēdì diànzǔjì", "三極法或鉤式量測接地極電阻 (Ω)"], ["cat4", "INDUSTRY", "検電器", "けんでんき", "驗電筆 / 高壓檢電器", "Yàndiànbǐ", "作業前確認設備是否確實無電壓"], ["cat4", "INDUSTRY", "リレー試験器", "りれーしけんき", "保護電驛測試儀", "Bǎohù diànyì cèshìyí", "模擬故障電流驗證電驛動作時間"], ["cat4", "INDUSTRY", "耐圧試験器", "たいあつしけんき", "耐壓試驗機 (Hi-Pot)", "Nàiyā shìyànjī", "執行高壓電纜或盤體交流/直流耐壓"], ["cat4", "INDUSTRY", "オシロスコープ", "おしろすこーぷ", "示波器", "Shìbōqì", "觀測變頻器輸出波形與突波"], ["cat4", "INDUSTRY", "CT開放厳禁", "しーてぃーかいほうげんきん", "嚴禁比流器二次側開路", "Yánjìn bǐliúqì kāilù", "CT二次側開路會產生極高危險電壓"], ["cat4", "INDUSTRY", "PT短絡厳禁", "ぴーてぃーたんらくげんきん", "嚴禁比壓器二次側短路", "Yánjìn bǐyāqì duǎnlù", "PT二次側短路會燒毀線圈或熔斷保險絲"], ["cat4", "INDUSTRY", "テストスイッチ", "てすとすいっち", "試驗端子切換開關", "Shìyàn duānzǐ kāiguān", "免拆線直接測試電驛與電表之接線盒"], ["cat4", "INDUSTRY", "限時動作", "げんじどうさ", "反時限動作 (Time Delay)", "Fǎnshíxiàn dòngzuò", "電流越大跳脫時間越短之保護曲線"], ["cat4", "INDUSTRY", "瞬時動作", "しゅんじどうさ", "瞬時動作 (Instantaneous)", "Shùnshí dòngzuò", "達設定倍數即無延時立即跳脫"], ["cat4", "INDUSTRY", "トリップコイル", "とりっぷこいる", "跳脫線圈 (TC)", "Tiàotuō xiànquān", "接收電驛接點訊號驅動斷路器跳脫"], ["cat4", "INDUSTRY", "投入コイル", "とうにゅうこいる", "投入線圈 (CC)", "Tóurù xiànquān", "驅動斷路器閉合送電之線圈"], ["cat4", "INDUSTRY", "補助接点", "ほじょせってん", "輔助接點 (a/b接點)", "Fǔzhù jiēdiǎn", "回傳斷路器開關狀態至PLC/指示燈"], ["cat4", "INDUSTRY", "直流操作電源", "ちょくりゅうそうさでんげん", "直流操作電源 (DC110V)", "Zhíliú cāozuò diànyuán", "確保停電時保護電驛與跳脫線圈仍能動作"], ["cat4", "INDUSTRY", "蓄電池盤", "ちくでんちばん", "直流電池組盤", "Zhíliú diànchízǔ pán", "供給高壓盤保護與控制系統不斷電電源"], ["cat4", "INDUSTRY", "漏れ電流", "もれでんりゅう", "洩漏電流", "Xièlòu diànliú", "絕緣劣化或潮濕導致流向大地之微電流"], ["cat4", "INDUSTRY", "動作時間", "どうさじかん", "動作時間 (ms)", "Dòngzuò shíjiān", "從故障發生到斷路器完全啟斷之時間"], ["cat4", "INDUSTRY", "協調曲線", "きょうちょうきょくせん", "保護協調時間-電流曲線 (TCC)", "Bǎohù xiétiáo qūxiàn", "繪製上下游保護元件動作曲線避免重疊"], ["cat4", "INDUSTRY", "封印", "ふういん", "鉛封 / 台電封印", "Qiānfēng", "台電掛表後於MOF與電表箱加裝之封條"], ["cat4", "INDUSTRY", "検針日", "けんしんび", "抄表日", "Chāobiǎorì", "台電每月結算電費度數與最高需量之日"], ["cat4", "INDUSTRY", "力率計", "りきりつけい", "功率因數表", "Gōnglǜ yīnshùbiǎo", "即時顯示系統超前或滯後功因"], ["cat4", "INDUSTRY", "周波数計", "しゅうはすうけい", "頻率表 (Hz)", "Pínlǜbiǎo", "台灣系統標準頻率為 60Hz"], ["cat4", "INDUSTRY", "警報出力", "けいほうしゅつりょく", "警報接點輸出", "Jǐngbào jiēdiǎn shūchū", "異常時傳送至中控室監控系統"], ["cat4", "INDUSTRY", "故障表示器", "こしょうひょうじき", "故障指示器 (FI)", "Gùzhàng zhǐshìqì", "高壓電纜上偵測短路/接地之發光指示器"], ["cat4", "COMPANY", "保護リレー表", "ほごりれーひょう", "保護電驛設定一覽表", "Bǎohù diànyì shèdìngbiǎo", "送台電圖審必備之標置參數總表"], ["cat4", "SLANG", "誤トリップ", "ごとりっぷ", "誤跳 / 誤動作", "Wùtiào", "非真正故障卻因諧波或靈敏度過高跳脫"], ["cat5", "OFFICIAL", "架橋ポリエチレン絶縁ケーブル", "かきょうぽりえちれんぜつえんけーぶる", "交連聚乙烯電纜 (XLPE)", "Jiāolián jùyǐxī diànlǎn", "高壓與坑內動力主流耐溫防水電纜"], ["cat5", "INDUSTRY", "高圧ケーブル", "こうあつけーぶる", "高壓電纜 (6.6kV/22.8kV)", "Gāoyā diànlǎn", "具遮蔽銅帶與絕緣層之輸電纜線"], ["cat5", "INDUSTRY", "難燃ケーブル", "なんねんけーぶる", "耐燃電纜 (FR)", "Nàirán diànlǎn", "隧道火災時一定時間內維持供電"], ["cat5", "INDUSTRY", "耐火ケーブル", "たいかけーぶる", "耐熱/耐火電纜", "Nàihuǒ diànlǎn", "緊急排煙、消防與逃生照明專用"], ["cat5", "INDUSTRY", "低煙無毒ケーブル", "ていえんむどくけーぶる", "低煙無鹵電纜 (LSZH)", "Dīyān wúlǔ diànlǎn", "地下隧道強制要求，燃燒不生毒煙"], ["cat5", "INDUSTRY", "キャブタイヤケーブル", "きゃぶたいやけーぶる", "橡膠軟電纜 (VCT/PNCT)", "Xiàngjiāo ruǎn diànlǎn", "坑內移動機具與潛盾機捲筒專用耐磨線"], ["cat5", "INDUSTRY", "制御ケーブル", "せいぎょけーぶる", "控制電纜 (CVV)", "Kòngzhì diànlǎn", "傳送開關訊號與儀表電源之多芯線"], ["cat5", "INDUSTRY", "遮蔽ケーブル", "しゃへいけーぶる", "隔離/遮蔽電纜 (CVV-S)", "Gélí diànlǎn", "具銅箔或編織網抗電磁干擾(EMI)"], ["cat5", "INDUSTRY", "光ファイバーケーブル", "ひかりふぁいばーけーぶる", "光纖電纜", "Guāngxiān diànlǎn", "長距離隧道掘進數據與CCTV傳輸"], ["cat5", "INDUSTRY", "導体断面積", "どうたいだんめんせき", "線徑 / 導體截面積 (mm²)", "Xiànjìng", "決定電纜安全載流量之規格"], ["cat5", "INDUSTRY", "許容電流", "きょようでんりゅう", "安全電流 / 容許電流", "Ānquán diànliú", "電纜不過熱損壞之最大連續電流"], ["cat5", "INDUSTRY", "ケーブルラック", "けーぶるらっく", "電纜架 (Cable Tray)", "Diànlǎnjià", "隧道側壁高架支撐電纜之金屬托架"], ["cat5", "INDUSTRY", "メッセンジャーワイヤー", "めっせんじゃーわいやー", "吊掛鋼索", "Diàoguà gāngsuǒ", "坑內臨時架空拉設電纜之支撐鋼線"], ["cat5", "INDUSTRY", "電線管", "でんせんかん", "導線管 (EMT/RSG/PVC)", "Dǎoxiànguǎn", "保護電線免受機械外力損傷之管路"], ["cat5", "INDUSTRY", "可とう電線管", "かとうでんせんかん", "金屬軟管 (Flexible)", "Jīnshǔ ruǎnguǎn", "馬達接線盒抗震防水之彎曲軟管"], ["cat5", "INDUSTRY", "プルボックス", "ぷるぼっくす", "拉線箱 (Pull Box)", "Lāxiànxiāng", "長距離配管轉彎或分歧拉線用箱體"], ["cat5", "INDUSTRY", "ジャンクションボックス", "じゃんくしょんぼっくす", "防水接線盒 (JB)", "Fángshuǐ jiēxiànhé", "坑內電纜銜接或分支專用密閉箱"], ["cat5", "INDUSTRY", "直線接続", "ちょくせんせつぞく", "電纜直線中間接頭", "Diànlǎn zhōngjiān jiētóu", "隧道推進延長時串接高壓電纜"], ["cat5", "INDUSTRY", "高圧プラグ・レセプタクル", "こうあつぷらぐ・れせぷたくる", "高壓防水插頭座", "Gāoyā fángshuǐ chātóuzuò", "方便隧道延伸快速插接之高壓接頭"], ["cat5", "INDUSTRY", "接地線", "せっちせん", "接地線 (E線 / 綠色)", "Jiēdìxiàn", "將設備外殼連接至大地電位"], ["cat5", "INDUSTRY", "シールド接地", "しーるどせっち", "電纜遮蔽層接地", "Diànlǎn zhēbìcéng jiēdì", "高壓電纜銅帶單端或雙端接地"], ["cat5", "INDUSTRY", "循環電流", "じゅんかんでんりゅう", "環流 (護層感應電流)", "Huánliú", "單芯高壓電纜雙端接地造成發熱"], ["cat5", "INDUSTRY", "多芯ケーブル", "たしんけーぶる", "多芯電纜", "Duōxīn diànlǎn", "單一外皮內含3芯或4芯導線"], ["cat5", "INDUSTRY", "単芯ケーブル", "たんしんけーぶる", "單芯電纜", "Dānxīn diànlǎn", "大電流幹線（如300mm²以上）常採單芯併聯"], ["cat5", "INDUSTRY", "許容曲げ半径", "きょようまげはんけい", "最小容許彎曲半徑", "Zuìxiǎo wānqū bànjìng", "折彎過度會破壞高壓電纜絕緣層"], ["cat5", "INDUSTRY", "延線作業", "えんせんさぎょう", "佈線 / 拉線作業", "Bùxiàn zuòyè", "使用絞盤與滑輪牽引重型電纜"], ["cat5", "INDUSTRY", "ケーブルローラー", "けーぶるろーらー", "拉線滾輪", "Lāxiàn gǔnlún", "減少長距離拉線摩擦力之滾軸"], ["cat5", "INDUSTRY", "延線張力", "えんせんちょうりょく", "拉線張力", "Lāxiàn zhānglì", "牽引時不得超過電纜導體容許抗拉值"], ["cat5", "INDUSTRY", "管路埋設", "かんろまいせつ", "地下埋管", "Dìxià máiguǎn", "台電外線引進或跨越工區道路防護管"], ["cat5", "INDUSTRY", "ハンドホール", "はんどほーる", "手孔 (Handhole)", "Shǒukǒng", "地下電纜拉線與接續用小型人孔"], ["cat5", "INDUSTRY", "マンホール", "まんほーる", "人孔 (Manhole)", "Rénkǒng", "人員可進入施工之高壓電纜地下室"], ["cat5", "INDUSTRY", "防火区画貫通処置", "ぼうかくかくかんつうしょち", "防火填塞", "Fánghuǒ tiánsāi", "電纜貫穿變電室牆面須施作防火泥封堵"], ["cat5", "INDUSTRY", "ケーブルクリート", "けーぶるくりーと", "電纜固定夾 (Cleat)", "Diànlǎn gùdìngjiā", "承受短路電磁斥力之堅固線夾"], ["cat5", "INDUSTRY", "相色識別", "そうしきしきべつ", "相色標示 (R/S/T)", "Xiàngsè biāoshì", "台灣慣用紅/白/藍或紅/黃/藍區分三相"], ["cat5", "INDUSTRY", "熱収縮チューブ", "ねつしゅうしゅくちゅーぶ", "熱縮套管", "Rèsuō tàoguǎn", "烘烤收縮密封電纜接頭與絕緣"], ["cat5", "INDUSTRY", "常温収縮チューブ", "じょうおんしゅうしゅくちゅーぶ", "冷縮套管", "Lěngsuō tàoguǎn", "免動火抽芯即自動收縮，適合坑內"], ["cat5", "INDUSTRY", "防水テープ", "ぼうすいてーぷ", "自融性防水膠帶", "Zìróngxìng fángshuǐ jiāodài", "坑內潮濕接頭防水絕緣包紮"], ["cat5", "INDUSTRY", "ケーブルドラム", "けーぶるどらむ", "電纜木軸 / 線盤", "Diànlǎn xiànpán", "出廠捲裝重型電纜之圓盤"], ["cat5", "INDUSTRY", "接地網", "せっちもう", "接地網 (Ground Grid)", "Jiēdìwǎng", "變電站下方埋設裸銅線與接地棒形成等電位"], ["cat5", "INDUSTRY", "銅棒接地極", "どうぼうせっちきょく", "銅包鋼接地棒", "Tóngbāogāng jiēdìbàng", "打入地下降低接地電阻之金屬棒"], ["cat5", "INDUSTRY", "テルミット溶接", "てるみっとようせつ", "熱熔焊接 (Cadweld)", "Rèróng hànjiē", "地下接地網銅線永久性分子熔接"], ["cat5", "INDUSTRY", "立坑引下ケーブル", "たてこうひきさげけーぶる", "立坑垂直垂吊電纜", "Lìkēng chuízhí diànlǎn", "從地面變電站沿發進井垂直吊入坑底"], ["cat5", "INDUSTRY", "ケーブルサポータ", "けーぶるさぽーた", "垂直電纜支撐夾", "Chuízhí diànlǎn zhīchēngjiā", "立坑每間隔固定高度承托電纜重量"], ["cat5", "INDUSTRY", "電磁誘導障害", "でんじゆうどうしょうがい", "電磁干擾 (EMI)", "Diàncí gānrǎo", "高壓動力線與弱電訊號線須保持間距"], ["cat5", "INDUSTRY", "離隔距離", "りかくきょり", "安全間距 / 淨距", "Ānquán jiānjù", "強電與弱電或水管間之最小隔離距離"], ["cat5", "INDUSTRY", "配線図", "はいせんず", "配線圖 / 管線配置圖", "Pèixiànzú", "標示電纜規格、路徑與迴路編號圖說"], ["cat5", "INDUSTRY", "単線結線図", "たんせんけっせんず", "單線系統圖 (SLD)", "Dānxìan xìtǒngtú", "以單線簡化表達三相電力系統架構"], ["cat5", "INDUSTRY", "三線結線図", "さんせんけっせんず", "三線接線圖", "Sānxiàn jiēxiàntú", "詳細標示 R-S-T-N 與 CT/PT 接線"], ["cat5", "SLANG", "ケーブル引き", "けーぶるひき", "拉電線 / 放線", "Lā diànxiàn", "現場工班口語指佈放電纜"], ["cat5", "SLANG", "ビニテ", "びにて", "電火布 (絕緣膠帶)", "Diànhuǒbù", "台日工地常見口語指 PVC 絕緣膠帶"], ["cat6", "OFFICIAL", "シールド機電源設備", "しーるどきでんげんせつび", "潛盾機電源設備", "Qiándùnjī diànyuán shèbèi", "驅動刀盤、推進與泥水泵之心臟系統"], ["cat6", "INDUSTRY", "後方台車変圧器", "こうほうだいしゃへんあつき", "後方台車變壓器", "Hòufāng táichē biànyāqì", "隨潛盾機前進之機載降壓變壓器"], ["cat6", "INDUSTRY", "ケーブルリール", "けーぶるりーる", "高壓電纜捲筒", "Gāoyā diànlǎn juǎntǒng", "自動收放 6.6kV/3.3kV 供電電纜之捲盤"], ["cat6", "INDUSTRY", "スリップリング", "すりっぷりんぐ", "集電環 (Slip Ring)", "Jídiànhuán", "電纜捲筒旋轉時維持不斷電導通"], ["cat6", "INDUSTRY", "カッター駆動モータ", "かったーくどうもーた", "刀盤驅動馬達", "Dāopán qūdòng mǎdá", "潛盾機最大耗電負荷（多台並聯）"], ["cat6", "INDUSTRY", "カッターインバータ", "かったーいんばーた", "刀盤變頻器", "Dāopán biànpínqì", "控制刀盤轉速與正反轉扭矩"], ["cat6", "INDUSTRY", "回生抵抗器", "かいせいていこうき", "再生煞車電阻器", "Zàishēng shāchē diànzǔqì", "消耗刀盤減速停機產生之回饋電能"], ["cat6", "INDUSTRY", "油圧ユニット電源", "ゆあつゆにっとでんげん", "液壓動力站電源", "Yèyā dònglìzhàn diànyuán", "驅動推進千斤頂與拼裝機液壓泵"], ["cat6", "INDUSTRY", "スクリューコンベア駆動", "すくりゅーこんべあくどう", "螺旋輸送機驅動", "Luóxuán shūsòngjī qūdòng", "土壓平衡式潛盾機排土馬達"], ["cat6", "INDUSTRY", "送泥ポンプ", "そうでいぽんぷ", "送泥泵浦 (P1)", "Sòngní bèngpǔ", "地面向切羽輸送泥水之高壓泵"], ["cat6", "INDUSTRY", "排泥ポンプ", "はいでいぽんぷ", "排泥泵浦 (P2/P3)", "Páiní bèngpǔ", "切羽泥水輸送至地面處理廠之中繼泵"], ["cat6", "INDUSTRY", "泥水処理プラント電源", "でいすいしょりぷらんとでんげん", "泥水處理廠電源 (STP)", "Níshuǐ chǔlǐchǎng diànyuán", "振動篩、旋流器、壓濾機等地面大負荷"], ["cat6", "INDUSTRY", "裏込め注入プラント電源", "うらごめちゅうにゅうぷらんとでんげん", "背填灌漿廠電源", "Bèitián guànjiāngchǎng diànyuán", "A/B液拌合機與高壓注漿泵電源"], ["cat6", "INDUSTRY", "自動測量システム電源", "じどうそくりょうしすてむでんげん", "自動導引測量系統電源", "Zìdòng dǎoyǐn cèliáng diànyuán", "陀螺儀與全站儀雷射定位專用UPS電源"], ["cat6", "INDUSTRY", "中央制御室", "ちゅうおうせいぎょしつ", "中央控制室 (CCR)", "Zhōngyāng kòngzhìshì", "地面監控潛盾機掘進與電力參數之中心"], ["cat6", "INDUSTRY", "機内操作盤", "きないそうさばん", "機內主操作盤", "Jīnèi zhǔ cāozuòpán", "潛盾機操作手駕駛座控制面板"], ["cat6", "INDUSTRY", "PLC制御盤", "ぴーえるしーせいぎょばん", "PLC 控制盤", "PLC kòngzhìpán", "可程式邏輯控制器，執行聯鎖與自動控制"], ["cat6", "INDUSTRY", "遠隔I/O盤", "えんかくあいおーばん", "遠端 I/O 模組箱", "Yuǎnduān I/O mózǔxiāng", "分散收集各處感測器訊號傳回PLC"], ["cat6", "INDUSTRY", "圧力伝送器", "あつりょくでんそうき", "壓力傳送器 (PIT)", "Yālì chuánsòngqì", "輸出 4~20mA 訊號監測土壓/水壓/油壓"], ["cat6", "INDUSTRY", "電磁流量計", "でんじりゅうりょうけい", "電磁流量計 (FIT)", "Diàncí liúliàngjì", "量測送排泥漿流量計算開挖土量"], ["cat6", "INDUSTRY", "γ線密度計", "がんませんみつどけい", "伽馬射線比重計", "Jiāmǎ shèxiàn bǐzhòngjì", "非接觸量測泥水管內泥水比重"], ["cat6", "INDUSTRY", "ガス検知器", "がすけんちき", "氣體偵測器", "Qìtǐ zhēncèqì", "監測坑內甲烷、一氧化碳、硫化氫與氧氣"], ["cat6", "INDUSTRY", "インターホン・坑内電話", "いんたーほん・こうないでんわ", "坑內對講機與直通電話", "Kēngnèi duìjiǎngjī", "切羽與地面中控室抗噪緊急通話系統"], ["cat6", "INDUSTRY", "監視カメラ", "かんしかめら", "CCTV 閉路監視系統", "Bìlù jiānshì xìtǒng", "監控皮帶機、環片區與立坑吊裝安全"], ["cat6", "INDUSTRY", "セグメントエレクタ制御", "せぐめんとえれくたせいぎょ", "環片拼裝機控制", "Huánpiàn pīnzhuāngjī kòngzhì", "無線或有線遙控組裝環片之安全迴路"], ["cat6", "INDUSTRY", "バッテリーロコ充電設備", "ばってりーろこじゅうでんせつび", "電瓶機車充電設備", "Diànpíng jīchē chōngdiàn shèbèi", "大功率整流充電器，須注意諧波與防爆"], ["cat6", "INDUSTRY", "ガントリークレーン電源", "がんとりーくれーんでんげん", "門型吊車電源", "Ménxíng diàochē diànyuán", "發進井口吊運環片與渣土箱專用電源"], ["cat6", "INDUSTRY", "集電トロリー線", "しゅうでんとろりーせん", "安全滑觸線 (Trolley)", "Ānquán huáchùxiàn", "供給門型吊車移動用之滑動導軌電源"], ["cat6", "INDUSTRY", "ケーブル延長作業", "けーぶるえんちょうさぎょう", "坑內高壓電纜延伸", "Kēngnèi gāoyā diànlǎn yánshēn", "掘進滿捲筒長度後停機接續延長電纜"], ["cat6", "INDUSTRY", "掘進インターロック", "くっしんいんたーろっく", "掘進聯鎖保護", "Juéjìn liánsuǒ bǎohù", "如通風機或泥水泵未啟動時禁止刀盤旋轉"], ["cat6", "INDUSTRY", "非常停止ループ", "ひじょうていしるーぷ", "緊急停止迴路", "Jǐnjí tíngzhǐ huílù", "沿後方台車串聯急停按鈕之安全迴路"], ["cat6", "INDUSTRY", "データロガー", "でーたろがー", "數據記錄器", "Shùjù jìlùqì", "每秒自動存檔掘進推力、電流與電壓數據"], ["cat6", "INDUSTRY", "接地監視器", "せっちかんしき", "潛盾機絕緣接地監測", "Qiándùnjī jiēdì jiāncè", "監測機殼與高壓電纜漏電狀態"], ["cat6", "INDUSTRY", "過トルク保護", "かとるくほご", "刀盤過扭矩保護", "Dāopán guòniǔjǔ bǎohù", "電流達上限時自動降速或停機防卡死"], ["cat6", "INDUSTRY", "初期掘進仮電源", "しょきくっしんかでんげん", "初期掘進臨時電源", "Chūqī juéjìn línshí diànyuán", "台車未下井前架設於地面或發進井之供電"], ["cat6", "INDUSTRY", "本掘進電源切替", "ほんくっしんでんげんきりかえ", "正式掘進電源切換", "Zhèngshì juéjìn diànyuán qiēhuàn", "後方台車全數下井後轉由捲筒供電"], ["cat6", "INDUSTRY", "テールシールグリース自動給脂", "てーるしーるぐりーすじどうきゅうし", "盾尾油脂自動注脂控制", "Dùnwěi yóuzhī zìdòng zhùzhī", "電動/氣動泵定時定壓自動補脂"], ["cat6", "INDUSTRY", "加泥材注入制御", "かでいざいちゅうにゅうせいぎょ", "加泥/泡沫注入控制", "Jiāní zhùrù kòngzhì", "EPB 潛盾機隨刀盤轉速自動比例注漿"], ["cat6", "INDUSTRY", "ベルトコンベア連動", "べるとこんべあれんどう", "皮帶輸送機連動", "Pídài shūsòngjī liándòng", "防拉線急停開關 (Pull-Cord Switch)"], ["cat6", "INDUSTRY", "リミットスイッチ", "りみっとすいっち", "極限開關 (Limit Switch)", "Jíxiàn kāiguān", "偵測機械行程終點或閘門開關位置"], ["cat6", "INDUSTRY", "近接スイッチ", "きんせつすいっち", "近接開關", "Jìnjiē kāiguān", "非接觸偵測金屬齒輪轉速或千斤頂位置"], ["cat6", "INDUSTRY", "ストローク計", "すとろーくけい", "千斤頂行程感測器", "Qiānjīndǐng xíngchéng gǎncèqì", "量測推進油壓缸伸出長度 (mm)"], ["cat6", "INDUSTRY", "エンコーダ", "えんこーだ", "編碼器 (Encoder)", "Biānmǎqì", "精確量測刀盤轉速與捲筒放線長度"], ["cat6", "INDUSTRY", "漏電警報器", "ろうでんけいほうき", "漏電警報器", "Lòudiàn jǐngbàoqì", "達預警值時發出聲光警報提醒檢修"], ["cat6", "INDUSTRY", "電圧調整器", "でんあつちょうせいき", "自動穩壓器 (AVR)", "Zìdòng wěnyāqì", "穩定精密測量儀器與PLC供電電壓"], ["cat6", "INDUSTRY", "無停電電源装置", "むていでんでんげんそうち", "不斷電系統 (UPS)", "Bùduàndiàn xìtǒng", "台電斷電瞬間維持PLC與陀螺儀供電"], ["cat6", "COMPANY", "メーカー取り合い", "めーかーとりあい", "製造商責任分界", "Zhìzàoshāng zérèn fēnjiè", "潛盾機廠與營造廠電源接續分界點"], ["cat6", "COMPANY", "機電連動試験", "きでんれんどうしけん", "機電聯合試運轉", "Jīdiàn liánhé shìyùnzhuǎn", "發進前全系統通電與聯鎖測試"], ["cat6", "SLANG", "カッターロック", "かったーろっく", "卡刀盤 / 過載跳脫", "Kǎ dāopán", "現場指刀盤電流飆高保護停機"], ["cat6", "SLANG", "リール巻き取り不良", "りーるまきとりふりょう", "捲筒亂線 / 咬線", "Juǎntǒng luànxiàn", "退車或收線時電纜排列重疊受損"], ["cat7", "OFFICIAL", "三相誘導電動機", "さんそうゆうどうでんどうき", "三相感應馬達", "Sānxiàng gǎnyìng mǎdá", "工地泵浦、風機與刀盤最常用馬達"], ["cat7", "INDUSTRY", "可変電圧可変周波数制御", "かへんでんあつかへんしゅうはすうせいぎょ", "變頻器 (VFD / Inverter)", "Biànpínqì", "調整頻率實現軟起動與節能調速"], ["cat7", "INDUSTRY", "ソフトスタータ", "そふとすたーた", "軟起動器 (Soft Starter)", "Ruǎn qǐdòngqì", "降壓平滑起動大馬達抑制電壓閃爍"], ["cat7", "INDUSTRY", "直入起動", "ちょくにゅうきどう", "全壓直接起動 (DOL)", "Quányā zhíjiē qǐdòng", "起動電流達額定 5~7 倍，大馬達禁用"], ["cat7", "INDUSTRY", "スターデルタ起動", "すたーでるたきどう", "Y-Δ 降壓起動", "Y-Δ jiàngyā qǐdòng", "起動電流降至直入起動之 1/3"], ["cat7", "INDUSTRY", "起動電流", "きどうでんりゅう", "起動電流 / 突入電流", "Qǐdòng diànliú", "馬達靜止通電瞬間產生之高峰電流"], ["cat7", "INDUSTRY", "定格出力", "ていかくしゅつりょく", "額定輸出功率 (kW/HP)", "Édìng shūchū gōnglǜ", "1 HP (馬力) 約等於 0.746 kW"], ["cat7", "INDUSTRY", "極数", "きょくすう", "馬達極數 (2P/4P/6P)", "Mǎdá jíshù", "決定馬達同步轉速（60Hz 4P約1800rpm）"], ["cat7", "INDUSTRY", "絶縁抵抗", "ぜつえんていこう", "馬達繞組絕緣電阻", "Mǎdá juéyuán diànzǔ", "開機前量測須大於規定兆歐 (MΩ) 值"], ["cat7", "INDUSTRY", "換気ファン", "かんきふぁん", "隧道送排風機", "Suìdào sòngpáifēngjī", "24小時連續運轉確保坑內新鮮空氣"], ["cat7", "INDUSTRY", "インバータ制御換気", "いんばーたせいぎょかんき", "變頻調速通風", "Biànpín tiáosù tōngfēng", "依掘進或出渣排氣需求調整風量節電"], ["cat7", "INDUSTRY", "ジェットファン", "じぇっとふぁん", "射流風機", "Shèliú fēngjī", "懸吊於隧道頂部促進縱向氣流"], ["cat7", "INDUSTRY", "集塵機", "しゅうじんき", "除塵機電源", "Chúchénjī diànyuán", "噴漿或爆破施工段過濾粉塵設備"], ["cat7", "INDUSTRY", "坑内排水ポンプ", "こうないはいすいぽんぷ", "坑內排水泵浦", "Kēngnèi páishuǐ bèngpǔ", "抽出湧水與施工廢水之關鍵保安設備"], ["cat7", "INDUSTRY", "水中ポンプ", "すいちゅうぽんぷ", "沉水泵浦", "Chénshuǐ bèngpǔ", "浸沒於集水坑內，須嚴格配裝漏電開關"], ["cat7", "INDUSTRY", "フロートスイッチ", "ふろーとすいっち", "液位浮球開關", "Yèwèi fúqiú kāiguān", "自動感測集水井水位啟停排水泵"], ["cat7", "INDUSTRY", "交互運転制御", "こうごうんてんせいぎょ", "雙泵交替運轉控制", "Shuāngbèng jiāotì yùnzhuǎn", "一用一備自動輪替，高水位時雙泵齊開"], ["cat7", "INDUSTRY", "コンプレッサー", "こんぷれっさー", "空氣壓縮機", "Kōngqì yāsuōjī", "提供坑內氣動工具與隔膜泵壓縮空氣"], ["cat7", "INDUSTRY", "グラウトポンプ", "ぐらうとぽんぷ", "灌漿泵浦", "Guànjiāng bèngpǔ", "背填與地盤改良高壓注漿電動泵"], ["cat7", "INDUSTRY", "振動ふるい", "しんどうふるい", "振動篩電源", "Zhèndòngshāi diànyuán", "泥水處理廠分離礫石與砂粒之振動馬達"], ["cat7", "INDUSTRY", "フィルタープレス", "ふぃるたーぷれす", "高壓板框壓濾機", "Gāoyā yālǜjī", "泥水廠脫水產生泥餅之大功率設備"], ["cat7", "INDUSTRY", "冷却水ポンプ", "れいきゃくすいぽんぷ", "冷卻水循環泵", "Lěngquèshuǐ xúnhuánbèng", "冷卻潛盾機油壓油與變頻器之水冷系統"], ["cat7", "INDUSTRY", "チラーユニット", "ちらーゆにっと", "冰水機組", "Bīngshuǐ jīzǔ", "長距離隧道降溫與冷卻水控溫設備"], ["cat7", "INDUSTRY", "過負荷保護", "かふかほご", "過載保護", "Guòzài bǎohù", "防止馬達電流長期超過額定燒毀線圈"], ["cat7", "INDUSTRY", "拘束保護", "こうそくほご", "堵轉/卡死保護", "Dǔzhuǎn bǎohù", "馬達軸卡死轉不動時快速跳脫"], ["cat7", "INDUSTRY", "ベアリング異常", "べありんぐいじょう", "軸承異音/過熱", "Zhóuchéng yìyīn", "馬達軸承磨損導致電流升高與振動"], ["cat7", "INDUSTRY", "キャビテーション", "きゃびてーしょん", "孔蝕 / 空蝕現象", "Kōngshí xiànxiàng", "泵浦吸氣導致電流擺動與葉輪損壞"], ["cat7", "INDUSTRY", "空運転防止", "からうんてんぼうし", "防空轉保護", "Fáng kōngzhuǎn bǎohù", "無水時自動停泵防止機械軸封燒毀"], ["cat7", "INDUSTRY", "正転・逆転", "せいてん・ぎゃくてん", "正轉 / 反轉", "Zhèngzhuǎn fǎnzhuǎn", "調換三相任意兩相即可改變旋轉方向"], ["cat7", "INDUSTRY", "回転数制御", "かいてんすうせいぎょ", "轉速控制 (RPM)", "Zhuǎnsù kòngzhì", "變頻器依頻率比例調整馬達轉速"], ["cat7", "INDUSTRY", "サーミスタ", "さーみすた", "馬達內藏溫度感測器 (PTC)", "Mǎdá wēndù gǎncèqì", "直接嵌入定子線圈監測過熱"], ["cat7", "INDUSTRY", "スペースヒータ", "すぺーすひーた", "馬達防潮加熱器", "Mǎdá fángcháo jiārèqì", "停機期間保持馬達內部乾燥防受潮"], ["cat7", "INDUSTRY", "絶縁劣化", "ぜつえんれっか", "絕緣劣化", "Juéyuán lièhuà", "潮濕泥水侵入導致馬達對地絕緣下降"], ["cat7", "INDUSTRY", "ドライヤ", "どらいや", "馬達線圈烘乾", "Mǎdá xiànquān hōnggān", "受潮馬達拆解烘烤恢復絕緣電阻"], ["cat7", "INDUSTRY", "電流不平衡", "でんりゅうふへいこう", "三相電流不平衡", "Sānxiàng diànliú bùpínghéng", "三相電流差異過大代表繞組或接點異常"], ["cat7", "INDUSTRY", "キャリア周波数", "きゃりあしゅうはすう", "載波頻率", "Zàibō pínlǜ", "變頻器 PWM 開關頻率，影響電磁噪音"], ["cat7", "INDUSTRY", "回生ブレーキ", "かいせいぶれーき", "再生制動", "Zàishēng zhìdòng", "煞車時馬達變為發電機回饋電能"], ["cat7", "INDUSTRY", "直流リアクトル", "ちょくりゅうりあくとる", "直流電抗器 (DCL)", "Zhíliú diànkàngqì", "接於變頻器直流匯流排抑制諧波"], ["cat7", "INDUSTRY", "交流リアクトル", "こうりゅうりあくとる", "交流輸入電抗器 (ACL)", "Jiāoliú shūrù diànkàngqì", "減緩變頻器輸入側電流衝擊與諧波"], ["cat7", "INDUSTRY", "ノイズフィルタ", "のいずふぃるた", "雜訊濾波器 (EMI Filter)", "Záxùn lǜbōqì", "減少變頻器高頻雜訊干擾周邊儀表"], ["cat7", "INDUSTRY", "動力線と制御線の分離", "どうりょくせんとせいぎょせんのぶんり", "動力與控制線分離敷設", "Dònglì yǔ kòngzhìxiàn fēnlí", "避免變頻器高頻輻射干擾訊號線"], ["cat7", "INDUSTRY", "電動機制御センタ", "でんどうきせいぎょせんた", "馬達控制中心 (MCC)", "Mǎdá kòngzhì zhōngxīn", "模組化抽屜式馬達控制盤組"], ["cat7", "INDUSTRY", "現場操作箱", "げんばそうさばこ", "現場手元開關箱 (LCS)", "Xiànchǎng cāozuòxiāng", "設於設備旁供就地啟停與緊急停止"], ["cat7", "INDUSTRY", "遠方・手元切替", "えんぽう・てもときりかえ", "遠端/就地切換 (Remote/Local)", "Yuǎnduān jiùdì qiēhuàn", "切換中控室遙控或現場人員操作"], ["cat7", "INDUSTRY", "全閉外扇形", "ぜんぺいがいせんがた", "全密閉外扇型馬達 (TEFC)", "Quánmìbì wàishānxíng mǎdá", "防塵防滴，適合隧道惡劣環境"], ["cat7", "INDUSTRY", "カップリング", "かっぷりんぐ", "聯軸器", "Liánzhóuqì", "連接馬達與泵浦轉軸之傳動件"], ["cat7", "INDUSTRY", "アライメント", "あらいめんと", "軸心校準 / 對心", "Duìxīn", "馬達與泵浦軸心對正減少振動與電流"], ["cat7", "COMPANY", "試運転", "しうんてん", "單機試車 / 空載試運轉", "Dānjī shìchē", "接線完成後確認轉向與空載電流"], ["cat7", "SLANG", "焼き付き", "やきつき", "燒線圈 / 燒毀 (馬達)", "Shāo xiànquān", "現場指馬達過載或欠相導致線圈燒焦"], ["cat7", "SLANG", "インバータが飛ぶ", "いんばーたがとぶ", "變頻器炸掉 / 故障跳脫", "Biànpínqì zhàdiào", "現場口語指變頻器 IGBT 模組損壞"], ["cat8", "OFFICIAL", "接地工事", "せっちこうじ", "接地工程", "Jiēdì gōngchéng", "台灣依《用戶用電設備裝置規則》分種"], ["cat8", "OFFICIAL", "特種接地", "とくしゅせっち", "特種接地 (10Ω以下)", "Tèzhǒng jiēdì", "高壓設備金屬外殼與避雷器接地標準"], ["cat8", "OFFICIAL", "第一種接地", "だいいっしゅせっち", "第一種接地 (25Ω以下)", "Dìyīzhǒng jiēdì", "非特種之高壓及低壓設備接地"], ["cat8", "OFFICIAL", "第三種接地", "だいさんしゅせっち", "第三種接地 (100Ω以下)", "Dìsānzhǒng jiēdì", "一般低壓 300V 以下設備外殼接地"], ["cat8", "OFFICIAL", "等電位ボンディング", "とうでんいぼんでぃんぐ", "等電位接地搭接", "Děngdiànwèi dājiē", "鋼構、軌道、水管與配電盤相連防電位差"], ["cat8", "OFFICIAL", "ロックアウト・タグアウト", "ろっくあうと・たぐあうと", "上鎖掛牌 (LOTO)", "Shàngsuǒ guàpái", "斷電後個人上鎖並懸掛作業名牌防誤送電"], ["cat8", "OFFICIAL", "無電圧確認", "むでんあつかくにん", "驗電確認無電", "Yàndiàn quèrèn wúdiàn", "停電作業前必須以檢電器確認三相無電"], ["cat8", "OFFICIAL", "短絡接地器具", "たんらくせっちきぐ", "臨時短路接地線", "Línshí duǎnlù jiēdìxiàn", "驗電後掛設，防止感應電或誤送電傷人"], ["cat8", "OFFICIAL", "活線作業禁止", "かっせんさぎょうきんし", "嚴禁活電作業", "Yánjìn huódiàn zuòyè", "隧道潮濕環境禁止帶電接線或檢修"], ["cat8", "OFFICIAL", "活線近接作業", "かっせんきんせつさぎょう", "活電鄰近作業", "Huódiàn línjìn zuòyè", "接近帶電體時須裝設絕緣防護具"], ["cat8", "OFFICIAL", "絶縁保護具", "ぜつえんほごぐ", "絕緣防護具", "Juéyuán fánghùjù", "絕緣手套、絕緣靴、絕緣墊與絕緣帽"], ["cat8", "OFFICIAL", "絶縁手袋", "ぜつえんてぶくろ", "高壓絕緣手套", "Gāoyā juéyuán shǒutào", "操作高壓開關前必戴且須檢查無漏氣"], ["cat8", "OFFICIAL", "絶縁マット", "ぜつえんまっと", "絕緣橡膠墊", "Juéyuán xiàngjiāodiàn", "鋪設於高壓配電盤與MCC盤前方地面"], ["cat8", "OFFICIAL", "高感度高速形漏電遮断器", "こうかんどこうそくがたろうでんしゃだんき", "高靈敏度高速型漏電斷路器", "Gāolíngmǐndù lòudiàn duànlùqì", "額定感度電流 30mA、動作時間 0.1秒內"], ["cat8", "OFFICIAL", "感電災害", "かんでんさいがい", "感電職災", "Gǎndiàn zhízāi", "電流通過人體造成灼傷或心室顫動"], ["cat8", "OFFICIAL", "電撃防止装置", "でんげきぼうしそうち", "自動電擊防止裝置", "Zìdòng diànjī fángzhǐ zhuāngzhì", "台灣職安規定交流電焊機強制加裝裝置"], ["cat8", "OFFICIAL", "電気主任技術者", "でんきしゅにんぎじゅつしゃ", "電氣技術人員 / 用電設備專任人員", "Diànqì jìshù rényuán", "高壓用電場所依法須聘任或委託專責人員"], ["cat8", "OFFICIAL", "電機技師", "でんきぎし", "執業電機技師", "Zhíyè diànjì jìshī", "負責高壓用電設計簽證與監造之專業技師"], ["cat8", "OFFICIAL", "電器承裝業", "でんきしょうそうぎょう", "合格電器承裝業", "Hégé diànqì chéngzhuāngyè", "依法登記可承攬高低壓配電施工之廠商"], ["cat8", "OFFICIAL", "安全離隔距離", "あんぜんりかくきょり", "安全接近界線", "Ānquán jiējìn jièxiàn", "人員與高壓帶電裸露部須保持最小距離"], ["cat8", "INDUSTRY", "接触電圧", "せっしょくでんあつ", "接觸電壓", "Jiēchù diànyā", "故障時人體觸及設備外殼承受之電壓"], ["cat8", "INDUSTRY", "歩幅電圧", "ほはばでんあつ", "跨步電壓", "Kuàbù diànyā", "高壓接地故障點附近地面兩腳間電位差"], ["cat8", "INDUSTRY", "避雷針", "ひらいしん", "避雷針", "Bìléizhēn", "設置於地面拌合廠、吊車與變電站頂部"], ["cat8", "INDUSTRY", "サージ防護デバイス", "さーじぼうごでばいす", "突波保護器 (SPD)", "Tūbō bǎohùqì", "保護弱電、PLC與台電進線端免受雷擊"], ["cat8", "INDUSTRY", "静電気対策", "せいでんきたいさく", "靜電消除接地", "Jìngdiàn xiāochú jiēdì", "油槽、粉體料倉與發電機加油時須接地"], ["cat8", "INDUSTRY", "作業許可証", "さぎょうきょかしょう", "高壓停電作業許可證", "Gāoyā tíngdiàn zuòyè xǔkězhèng", "執行停電檢修前須經主管簽核許可"], ["cat8", "INDUSTRY", "ツールボックスミーティング", "つーるぼっくすみーてぃんぐ", "工具箱會議 (TBT)", "Gōngjùxiāng huìyì", "開工前宣達當日電氣風險與停電範圍"], ["cat8", "INDUSTRY", "指差し呼称", "ゆびさしこしょう", "指差確認", "Zhǐchā quèrèn", "操作開關前「斷路器切斷、好！」確認"], ["cat8", "INDUSTRY", "残留電荷放電", "ざんりゅうでんかほうでん", "電容器殘餘電荷放電", "Diànróngqì cányú diànhè fàngdiàn", "斷電後電容器仍帶高壓須靜置放電"], ["cat8", "INDUSTRY", "絶縁棒", "ぜつえんぼう", "絕緣操作棒 (Hot Stick)", "Juéyuán cāozuòbàng", "安全距離外拉合高壓熔絲或掛接地線"], ["cat8", "INDUSTRY", "立入禁止柵", "たちいりきんしさく", "高壓危險圍籬與警示牌", "Gāoyā wēixiǎn wéilí", "變電站四周上鎖隔離非電氣人員進入"], ["cat8", "INDUSTRY", "二酸化炭素消火器", "にさんかたんそしょうかき", "二氧化碳/乾粉滅火器", "Èryǎnghuàtàn mièhuǒqì", "電氣火災專用，嚴禁用水柱撲救"], ["cat8", "INDUSTRY", "感電保護用低電圧", "かんでんほごようていでんあつ", "安全超低電壓 (ELV 24V)", "Ānquán chāodī diànyā", "狹窄潮濕鋼管內照明採用 DC24V 供電"], ["cat8", "INDUSTRY", "絶縁変圧器", "ぜつえんへんあつき", "隔離變壓器", "Gélí biànyāqì", "切斷一次側對地迴路提升坑內手工具安全"], ["cat8", "INDUSTRY", "浸水検知警報", "しんすいけんちけいほう", "配電室/坑底浸水警報", "Jìnshuǐ jǐngbào", "水位異常立即警報並自動切離低層電源"], ["cat8", "INDUSTRY", "電気火災", "でんきかさい", "電氣火災", "Diànqì huǒzāi", "接點鬆動過熱、短路或電纜過載起火"], ["cat8", "INDUSTRY", "トラッキング現象", "とらっきんぐげんしょう", "積污導電現象 (Tracking)", "Jīwū dǎodiàn", "粉塵潮氣附著絕緣表面產生電弧碳化起火"], ["cat8", "INDUSTRY", "赤外線サーモグラフィ", "せきがいせんさーもぐらふぃ", "紅外線熱像儀", "Hóngwàixiàn rèxiàngyí", "不停電掃描銅排、接頭有無異常高溫熱點"], ["cat8", "INDUSTRY", "定期自主検査", "ていきじしゅけんさ", "電氣設備定期自主檢查", "Diànqì dìngqī zìzhǔ jiǎnchá", "每月/每季檢測漏電斷路器與接地電阻"], ["cat8", "INDUSTRY", "高圧電気取扱特別教育", "こうあつでんきとりあつかいとくべつきょういく", "高壓電氣作業安全訓練", "Gāoyā diànqì ānquán xùnliàn", "操作高壓設備人員須具專業訓練資格"], ["cat8", "INDUSTRY", "復電手順", "ふくでんてじゅん", "復電標準程序", "Fùdiàn biāozhǔn chéngxù", "人員撤離→拆接地線→解鎖→送電確認"], ["cat8", "INDUSTRY", "停電範囲図", "ていでんはんいず", "停電影響範圍圖", "Tíngdiàn fànwéitú", "計畫性停電前標示受影響設備與保安措施"], ["cat8", "INDUSTRY", "作業責任者", "さぎょうせきにんしゃ", "停電作業負責人", "Tíngdiàn zuòyè fùzérèn", "統一保管鎖具鑰匙並下達送電指令"], ["cat8", "INDUSTRY", "警報ラベル", "けいほうらべる", "高壓危險警示標誌", "Gāoyā wēixiǎn jǐngshì", "盤面張貼中/日/英警告標語"], ["cat8", "INDUSTRY", "換気停止時退避", "かんきていしじたいひ", "通風中斷人員撤離基準", "Tōngfēng zhōngduàn chèlì", "主風機停電無法恢復時須緊急撤離坑內"], ["cat8", "INDUSTRY", "防爆エリア区分", "ぼうばくえりあくぶん", "防爆危險區域劃分", "Fángbào qūyù huàfēn", "Zone 0/1/2 依可燃氣體濃度選用電氣設備"], ["cat8", "INDUSTRY", "接地抵抗低減剤", "せっちていこうていげんざい", "降阻劑", "Jiàngzǔjì", "岩盤或乾燥砂礫地改善接地電阻用"], ["cat8", "COMPANY", "安全巡視", "あんぜんじゅんし", "工安電氣巡檢", "Gōng'ān diànqī xúnjiǎn", "每日檢查臨時配線有無破損或泡水"], ["cat8", "SLANG", "ビリビリする", "びりびりする", "麻電 / 漏電感電", "Mádiàn", "現場人員觸及金屬外殼感覺微弱漏電"], ["cat8", "SLANG", "パンク・ショート", "ぱんく・しょーと", "電線阿斯 / 短路爆炸", "Diànxiàn āsī", "現場台日混合俗稱相間短路產生火花"], ["cat9", "OFFICIAL", "非常用発電設備", "ひじょうようはつでんせつび", "緊急發電機組", "Jǐnjí fādiànjī zǔ", "台電停電時自動啟動供應保安與削峰電力"], ["cat9", "INDUSTRY", "ディーゼル発電機", "でぃーぜるはつでんき", "柴油發電機", "Cháiyóu fādiànjī", "工地最常用自備發電設備"], ["cat9", "INDUSTRY", "自動切替開閉器", "じどうきりかえかいへいき", "自動電源切換開關 (ATS)", "Zìdòng qiēhuàn kāiguān", "市電中斷後數秒內自動切至發電機"], ["cat9", "INDUSTRY", "連系遮断器", "れんけいしゃだんき", "發電機併聯斷路器", "Fādiànjī bìnglián duànlùqì", "多台發電機併聯或與市電短時併聯用"], ["cat9", "INDUSTRY", "自動同期装置", "じどうどうきそうち", "自動同步併聯裝置", "Zìdòng tóngbù bìnglián zhuāngzhì", "使發電機電壓、頻率、相位與系統一致"], ["cat9", "INDUSTRY", "防音型発電機", "ぼうおんがたはつでんき", "低噪音箱型發電機", "Dīzàoyīn fādiànjī", "都會區隧道工地符合環保噪音管制"], ["cat9", "INDUSTRY", "燃料小出し槽", "ねんりょうこだしそう", "柴油日用油箱", "Cháiyóu rìyòng yóuxiāng", "確保發電機連續運轉 8~24 小時以上"], ["cat9", "INDUSTRY", "始動用蓄電池", "しどうようちくでんち", "發電機啟動電瓶", "Fādiànjī qǐdòng diànpíng", "須配浮動充電器確保隨時可啟動"], ["cat9", "INDUSTRY", "負荷バンク試験", "ふかばんくしけん", "假負載測試 (Load Bank)", "Jiǎfùzài cèshì", "定期測試發電機滿載輸出能力"], ["cat9", "INDUSTRY", "保安負荷", "ほあんふか", "緊急保安負載", "Jǐnjí bǎo'ān fùzài", "停電時優先供電之排水、通風、逃生照明"], ["cat9", "INDUSTRY", "坑内仮設照明", "こうないかせつしょうめい", "坑內臨時照明", "Kēngnèi línshí zhàomíng", "沿隧道側壁連續架設之防塵防水 LED 燈"], ["cat9", "INDUSTRY", "非常用照明", "ひじょうようしょうめい", "緊急避難照明", "Jǐnjí bìnàn zhàomíng", "內建電池，全區斷電時維持逃生照度"], ["cat9", "INDUSTRY", "誘導灯", "ゆうどうとう", "避難方向指示燈", "Bìnàn fāngxiàng zhǐshìdēng", "標示通往發進井安全出口方向"], ["cat9", "INDUSTRY", "投光器", "とうこうき", "高功率LED投光燈", "Gāogōnglǜ tóuguāngdēng", "照明豎井口與地面吊裝作業區"], ["cat9", "INDUSTRY", "照度基準", "しょうどきじゅん", "坑內照度標準 (Lux)", "Kēngnèi zhàodù biāozhǔn", "切羽作業面與通道須達法規最低照度"], ["cat9", "INDUSTRY", "SCADA監視システム", "すかだかんししすてむ", "SCADA 電力監控系統", "SCADA diànlì jiānkòng", "即時監測全工區電流、電壓、功率與警報"], ["cat9", "INDUSTRY", "遠隔監視盤", "えんかくかんしばん", "中控室電力監控盤", "Zhōngkòngshì diànlì jiānkòngpán", "集中顯示變電站斷路器開關狀態"], ["cat9", "INDUSTRY", "Modbus / Ethernet通信", "もどばす / いーさねっとつうしん", "工業通訊協定", "Gōngyè tōngxùn xiédìng", "電表與電驛數據回傳電腦之通訊介面"], ["cat9", "INDUSTRY", "計装電源", "けいそうでんげん", "儀控專用電源", "Yíkòng zhuānyòng diànyuán", "獨立變壓器與UPS供應感測器免受干擾"], ["cat9", "INDUSTRY", "直流安定化電源", "ちょくりゅうあんていかでんげん", "DC24V 電源供應器", "DC24V diànyuán gōngyìngqì", "將 AC 轉為穩定 DC24V 供 PLC 與感測器"], ["cat9", "INDUSTRY", "入退場管理システム電源", "にゅうたいじょうかんりしすてむでんげん", "坑內人員門禁系統電源", "Rényuán ménjìn xìtǒng diànyuán", "RFID / 人臉辨識即時統計坑內人數"], ["cat9", "INDUSTRY", "無線AP・漏洩同軸ケーブル", "むせんえーぴー・ろうえいどうじくけーぶる", "坑內無線通訊與洩波電纜", "Xièbō diànlǎn", "維持長隧道內無線對講與網路暢通"], ["cat9", "INDUSTRY", "火災報知設備", "かさいほうちせつび", "火災警報系統", "Huǒzāi jǐngbào xìtǒng", "變電室與坑內台車設置煙霧/定溫探測器"], ["cat9", "INDUSTRY", "自動消火設備", "じどうしょうかせつび", "自動滅火系統", "Zìdòng mièhuǒ xìtǒng", "變電站或潛盾機油壓室氣體/泡沫滅火"], ["cat9", "INDUSTRY", "警報サイレン・回転灯", "けいほうさいれん・かいてんとう", "警報蜂鳴器與警示閃燈", "Jǐngbào fēngmíngqì", "全區緊急撤離或電力異常聲光警報"], ["cat9", "INDUSTRY", "避雷接地", "ひらいせっち", "防雷接地系統", "Fángléi jiēdì xìtǒng", "獨立於儀控接地以防雷擊反擊干擾"], ["cat9", "INDUSTRY", "分電盤スケジュール", "ぶんでんばんすけじゅーる", "配電盤迴路表", "Pèidiànpán huílùbiǎo", "詳細記錄每個 NFB 對應設備與容量"], ["cat9", "INDUSTRY", "電力監視ロギング", "でんりょくかんしろぎんぐ", "電力需量趨勢記錄", "Diànlì xūliàng qūshì jìlù", "分析每日用電尖峰作為台電協商佐證"], ["cat9", "INDUSTRY", "省エネ運転", "しょうえねうんてん", "節能調度運轉", "Jiénéng diàodù yùnzhuǎn", "待機時自動關閉非必要照明與空壓機"], ["cat9", "INDUSTRY", "夜間照明電源", "やかんしょうめいでんげん", "夜間施工照明電源", "Yèjiān shīgōng zhàomíng", "地面圍籬警示燈與吊裝區照明"], ["cat9", "INDUSTRY", "仮設事務所電源", "かせつじむしょでんげん", "工務所辦公電源", "Gōngwùsuǒ bàngōng diànyuán", "空調、電腦、會議室與印表機用電"], ["cat9", "INDUSTRY", "溶接機電源盤", "ようせつきでんげんばん", "電焊機專用電源箱", "Diànhànjī zhuānyòng diànyuánxiāng", "配裝漏電斷路器與電擊防止器"], ["cat9", "INDUSTRY", "試験室電源", "しけんしつでんげん", "工地試驗室電源", "Shìyànshì diànyuán", "混凝土養護水槽與試驗儀器恆溫電源"], ["cat9", "INDUSTRY", "門型ゲート電源", "もんがたげーとでんげん", "工區大門電動門與洗車台電源", "Dàmén yǔ xǐchētái diànyuán", "高壓洗車機沉澱池泵浦與電動閘門"], ["cat9", "INDUSTRY", "監視モニター", "かんしもにたー", "監控螢幕", "Jiānkòng yíngmù", "中控室顯示電力與掘進畫面之螢幕"], ["cat9", "INDUSTRY", "通信用UPS", "つうしんようゆーぴーえす", "通訊系統專用 UPS", "Tōngxùn zhuānyòng UPS", "停電時維持坑內電話與緊急廣播不斷線"], ["cat9", "INDUSTRY", "無停電切替", "むていでんきりかえ", "無中斷切換", "Wú zhōngduàn qiēhuàn", "閉鎖轉移 (Closed Transition) 零秒切換"], ["cat9", "INDUSTRY", "停電復電タイマー", "ていでんふくでんたいまー", "復電延時啟動計時器", "Fùdiàn yánshí qǐdòng jìshíqì", "避免復電瞬間所有馬達同時啟動跳脫"], ["cat9", "INDUSTRY", "順次起動", "じゅんじきどう", "順序延時啟動", "Shùnxù yánshí qǐdòng", "依序間隔數秒啟動大負載降低突波"], ["cat9", "INDUSTRY", "電圧監視リレー", "でんあつかんしりれー", "電壓監視電驛", "Diànyā jiānshì diànyì", "市電復原穩定後才允許切回台電電源"], ["cat9", "INDUSTRY", "発電機自動週次点検", "はつでんきじどうしゅうじてんけん", "發電機每週自動空載試轉", "Fādiànjī měizhōu zìdòng shìzhuǎn", "定時熱機確認啟動電瓶與油路正常"], ["cat9", "INDUSTRY", "排気ガス対策", "はいきがすたいさく", "發電機排氣淨化對策", "Fādiànjī páiqì jìnghuà", "嚴禁於密閉坑內使用柴油發電機防CO中毒"], ["cat9", "INDUSTRY", "防振架台", "ぼうしんかだい", "發電機防震基座", "Fādiànjī fángzhèn jīzuò", "減少運轉振動傳導至鄰近建物"], ["cat9", "INDUSTRY", "騒音レベル", "そうおんれべる", "噪音分貝值 (dB)", "Zàoyīn fēnbèizhí", "夜間運轉須符合環保署噪音管制標準"], ["cat9", "INDUSTRY", "照度計", "しょうどけい", "照度計", "Zhàodùjì", "工安人員量測坑內照明是否達標"], ["cat9", "INDUSTRY", "仮設電源撤去", "かせつでんげんてっきょ", "臨時電源拆除", "Línshí diànyuán chāichú", "隧道貫通完工後拆除臨時盤切換正式電"], ["cat9", "INDUSTRY", "本設電気引き渡し", "ほんせつでんきひきわたし", "永久電氣工程移交", "Yǒngjiǔ diànqì gōngchéng yíjiāo", "配合後續機電標安裝隧道永久照明與電力"], ["cat9", "COMPANY", "停電模擬訓練", "ていでんもぎくんれん", "全區停電應變演練", "Quánqū tíngdiàn yìngbiàn yǎnliàn", "測試 ATS、UPS 與緊急撤離程序"], ["cat9", "SLANG", "発電機回す", "はつでんきまわす", "發電機啟動 / 燒柴油", "Fādiànjī qǐdòng", "現場口語指改用自備發電機供電"], ["cat9", "SLANG", "UPSが鳴ってる", "ゆーぴーえすがなってる", "UPS 逼逼叫 (斷電警報)", "UPS jǐngbào", "現場指市電斷電僅剩電池支撐"], ["cat10", "OFFICIAL", "電気設備工事施工計画書", "でんきせつびこうじせこうけいかくしょ", "電氣設備施工計畫書", "Diànqì shīgōng jìhuàshū", "送交監造與業主核定之電氣施工文件"], ["cat10", "OFFICIAL", "自主検査表", "じしゅけんさひょう", "自主檢查表", "Zìzhǔ jiǎnchábiǎo", "承商施工完成後自行量測簽認表格"], ["cat10", "OFFICIAL", "立会検査", "たちあいけんさ", "會同查驗 / 檢驗停留點", "Huìtóng cháyàn", "須經監造或台電人員現場見證測試"], ["cat10", "OFFICIAL", "竣工試験報告書", "しゅんこうしけんほうこくしょ", "竣工試驗報告", "Jùngōng shìyàn bàogào", "報台電送電必附之變壓器/電驛測試報告"], ["cat10", "INDUSTRY", "導通試験", "どうつうしけん", "導通測試 (迴路檢查)", "Dǎotōng cèshì", "確認配線接續正確無斷線"], ["cat10", "INDUSTRY", "絶縁耐力試験", "ぜつえんたいりょくしけん", "絕緣耐壓測試", "Juéyuán nàiyā cèshì", "驗證高壓設備與電纜絕緣強度"], ["cat10", "INDUSTRY", "部分放電試験", "ぶぶんほうでんしけん", "局部放電測試 (PD)", "Júbù fàngdiàn cèshì", "偵測高壓電纜接頭內部微小氣隙放電"], ["cat10", "INDUSTRY", "接触抵抗測定", "せっしょくていこうそくてい", "接觸電阻量測 (μΩ)", "Jiēchù diànzǔ liángcè", "檢查斷路器接點與銅排鎖付緊密度"], ["cat10", "INDUSTRY", "変圧比試験", "へんあつひしけん", "變壓比測試 (TTR)", "Biànyābǐ cèshì", "確認變壓器各分接頭電壓比正確"], ["cat10", "INDUSTRY", "極性試験", "きょくせいしけん", "極性測試", "Jíxìng cèshì", "確認 CT/PT 與變壓器極性標示無誤"], ["cat10", "INDUSTRY", "連動試験", "れんどうしけん", "邏輯聯鎖測試", "Luójí liánsuǒ cèshì", "模擬異常訊號確認電驛跳脫與警報正常"], ["cat10", "INDUSTRY", "増し締め", "ましじめ", "力矩複鎖 / 鎖緊確認", "Lìjǔ fùsuǒ", "使用扭力扳手鎖緊銅排螺栓並畫記號"], ["cat10", "INDUSTRY", "マーキング", "まーきんぐ", "扭力確認畫線記號", "Niǔlì huàxiàn jìhào", "防鬆動檢查目視標記"], ["cat10", "INDUSTRY", "線番タグ", "せんばんたぐ", "線號標籤 (Wire Marker)", "Xiànhào biāoqiān", "每條控制線兩端套印清晰編號"], ["cat10", "INDUSTRY", "銘板", "めいばん", "設備銘牌 (Nameplate)", "Shèbèi míngpái", "標示盤體編號、電壓、電流與負責人"], ["cat10", "INDUSTRY", "竣工図面", "しゅんこうずめん", "竣工圖 (As-Built)", "Jùngōngtú", "依現場實際施作修正後之最終圖面"], ["cat10", "INDUSTRY", "是正処置", "ぜせいしょち", "缺失改善 / 矯正措施", "Quēshī gǎishàn", "針對查驗缺失進行修復並拍照回覆"], ["cat10", "INDUSTRY", "地絡故障", "ちらくこしょう", "接地故障", "Jiēdì gùzhàng", "相線絕緣破損與大地或鋼殼導通"], ["cat10", "INDUSTRY", "相間短絡", "そうかんたんらく", "相間短路", "Xiàngjiān duǎnlù", "兩相或三相導線直接接觸造成大電流"], ["cat10", "INDUSTRY", "断線故障", "だんせんこしょう", "斷線故障", "Duànxiàn gùzhàng", "導線拉斷或端子脫落導致無電流"], ["cat10", "INDUSTRY", "接触不良", "せっしょくふりょう", "接觸不良 / 虛接", "Jiēchù bùliáng", "接點鬆動導致局部發熱甚至電弧燒毀"], ["cat10", "INDUSTRY", "過電流トリップ", "かでんりゅうとりっぷ", "過電流跳脫", "Guòdiànliú tiàotuō", "電流超過設定值引起開關跳開"], ["cat10", "INDUSTRY", "漏電トリップ", "ろうでんとりっぷ", "漏電跳脫", "Lòudiàn tiàotuō", "對地漏電超過 30mA 引起 ELB 跳開"], ["cat10", "INDUSTRY", "原因究明", "げんいんきゅうめい", "故障原因查明", "Gùzhàng yuányīn chámíng", "跳電後嚴禁盲目送電，須先查明故障點"], ["cat10", "INDUSTRY", "切り分け調査", "きりわけちょうさ", "分段隔離排查", "Fēnduàn gélí páichá", "逐段切離分支迴路縮小故障範圍"], ["cat10", "INDUSTRY", "仮復旧", "かりふっきゅう", "臨時搶修復電", "Línshí qiǎngxiū fùdiàn", "隔離故障區段先恢復保安與主要供電"], ["cat10", "INDUSTRY", "恒久対策", "こうきゅうたいさく", "永久改善對策", "Yǒngjiǔ gǎishàn duìcè", "從設計或材料面徹底消除故障根因"], ["cat10", "INDUSTRY", "予備品在庫", "よびひんざいこ", "緊急備品庫存", "Jǐnjí bèipǐn kùcún", "備妥高壓熔絲、接觸器、電驛與接頭"], ["cat10", "INDUSTRY", "電力使用量集計", "でんりょくしようりょうしゅうけい", "每月用電量統計", "Měiyuè yòngdiànliàng tǒngjì", "追蹤實際 kWh 與最高需量調整契約容量"], ["cat10", "INDUSTRY", "基本料金見直し", "きほんりょうきんみなおし", "契約容量最適化檢討", "Qìyuē róngliàng zuìshìhuà", "依實測需量向台電申請調升或調降容量"], ["cat10", "COMPANY", "工務連絡書", "こうむれんらくしょ", "工務協調單 / 備忘錄", "Gōngwù xiétiáodān", "正式向台電或業主提出變更與協商之書面"], ["cat10", "COMPANY", "電気班", "でんきはん", "電氣班 / 機電組", "Diànqìbān", "負責工地高低壓配線與日常維護之團隊"], ["cat10", "COMPANY", "当直電気士", "とうちょくでんきし", "輪班駐點電工", "Lúnbān zhùdiǎn diàngōng", "24小時三班制駐守坑內外排除跳電"], ["cat10", "COMPANY", "計画停電", "けいかくていでん", "計畫性停電", "Jìhuàxìng tíngdiàn", "預先公告停電時間執行高壓保養或接線"], ["cat10", "COMPANY", "夜間切替作業", "やかんきりかえさぎょう", "夜間斷電切換作業", "Yèjiān duàndiàn qiēhuàn", "利用非掘進時段進行高壓電源切換"], ["cat10", "SLANG", "活かす", "いかす", "送電 / 帶電 (活線化)", "Sòngdiàn", "現場口語「この盤を活かす」即對此盤送電"], ["cat10", "SLANG", "殺す", "ころす", "斷電 / 停電隔離", "Duàndiàn", "現場口語「元を殺す」即切斷總電源"], ["cat10", "SLANG", "メガーが低い", "めがーがひくい", "絕緣太差 / 漏電", "Juéyuán tài chà", "用 Megger 量測 MΩ 值過低不能送電"], ["cat10", "SLANG", "アース取る", "あーすとる", "接接地 / 打地棒", "Jiē jiēdì", "現場人員指製作設備接地連線"], ["cat10", "SLANG", "バイパスする", "ばいぱすする", "跳接 / 旁路 (禁違規)", "Tiàojiē", "繞過保護開關，安全巡檢絕對禁止項目"], ["cat10", "SLANG", "チャタリング", "ちゃたりんぐ", "接觸器抖動 / 噠噠響", "Jiēchùqì dǒudòng", "電壓不足導致電磁接觸器吸合不穩發出異音"], ["cat10", "SLANG", "焼損・焦げ臭い", "しょうそん・こげくさい", "燒焦味 / 過熱燒損", "Shāojiāowèi", "盤內接點過熱發出絕緣燒焦味"], ["cat10", "SLANG", "仮設バラシ", "かせつばらし", "拆臨時電", "Chāi línshídiàn", "工程結束拆除工區所有臨時配電盤與線纜"], ["cat10", "SLANG", "一発で入った", "いっぱつではいった", "一次送電成功", "Yīcì sòngdiàn chénggōng", "台電檢驗合格一次合閘無跳脫"], ["cat10", "SLANG", "電気が来ない", "でんきがこない", "沒電 / 未送達", "Méidiàn", "現場指末端設備無電壓輸入"], ["cat10", "SLANG", "逆転してる", "ぎゃくてんしてる", "馬達反轉了", "Mǎdá fǎnzhuǎn le", "風機吹反或泵浦無出水，須對調兩相"], ["cat10", "SLANG", "線番が違う", "せんばんがちがう", "線號接錯", "Xiànhào jiēcuò", "端子台編號與圖面不符導致動作異常"], ["cat10", "SLANG", "ブレーカーが落ちた", "ぶれーかーがおちた", "開關跳掉了", "Kāiguān tiàodiào le", "過載或短路造成無熔絲開關跳脫"], ["cat10", "SLANG", "台電待ち", "たいでんまち", "等台電排檢 / 送電", "Děng Táidiàn", "工地設備就緒等待台電派員掛表送電"], ["cat10", "SLANG", "容量が足りない", "ようりょうがたりない", "電力容量不夠", "Róngliàng bùgòu", "現場設備全開時超約或台電核定不足"]];
+    let currentPage = 1;
+    const PAGE_SIZE = 40;
+
+    function switchTab(ev, tabId) {
+      document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+      document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
+      document.getElementById(tabId).classList.add('active');
+      ev.currentTarget.classList.add('active');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function toggleAnnotation(type) {
+      const container = document.getElementById('appContainer');
+      if (type === 'furigana') {
+        const btn = document.getElementById('furiganaToggle');
+        container.classList.toggle('hide-furigana');
+        const active = !container.classList.contains('hide-furigana');
+        btn.classList.toggle('active', active);
+        btn.innerHTML = active ? 'あ 振仮名：開' : 'あ 振仮名：關';
+      } else if (type === 'pinyin') {
+        const btn = document.getElementById('pinyinToggle');
+        container.classList.toggle('hide-pinyin');
+        const active = !container.classList.contains('hide-pinyin');
+        btn.classList.toggle('active', active);
+        btn.innerHTML = active ? '🔤 拼音：開' : '🔤 拼音：關';
+      }
+    }
+
+    function toggleCloze() {
+      const container = document.getElementById('appContainer');
+      const btn = document.getElementById('clozeToggle');
+      container.classList.toggle('cloze-active');
+      const active = container.classList.contains('cloze-active');
+      btn.classList.toggle('active', active);
+      btn.innerHTML = active ? '🙈 遮罩練習：開' : '🙈 遮罩練習：關';
+    }
+
+    /* === 500-Term Glossary Renderer === */
+    const LEVEL_META = {
+      OFFICIAL: { label: '① 公式規範', cls: 'badge-official', border: 'var(--primary)' },
+      INDUSTRY: { label: '② 業界慣用', cls: 'badge-industry', border: 'var(--secondary)' },
+      COMPANY:  { label: '③ 社内用語', cls: 'badge-company',  border: 'var(--accent)' },
+      SLANG:    { label: '④ 現場俗称', cls: 'badge-slang',    border: 'var(--danger)' }
+    };
+
+    function getFilteredTerms() {
+      const q = (document.getElementById('termSearch').value || '').trim().toLowerCase();
+      const cat = document.getElementById('catFilter').value;
+      const lvl = document.getElementById('levelFilter').value;
+      return GLOSSARY_TERMS.filter(t => {
+        if (cat !== 'ALL' && t[0] !== cat) return false;
+        if (lvl !== 'ALL' && t[1] !== lvl) return false;
+        if (q) {
+          const hay = (t[2] + ' ' + t[3] + ' ' + t[4] + ' ' + t[5] + ' ' + t[6]).toLowerCase();
+          if (!hay.includes(q)) return false;
+        }
+        return true;
+      });
+    }
+
+    function renderVocab(resetPage = true) {
+      if (resetPage) currentPage = 1;
+      const filtered = getFilteredTerms();
+      const total = filtered.length;
+      const showAll = document.getElementById('showAllCheck')?.checked;
+      const totalPages = showAll ? 1 : Math.max(1, Math.ceil(total / PAGE_SIZE));
+      if (currentPage > totalPages) currentPage = totalPages;
+
+      const slice = showAll ? filtered : filtered.slice((currentPage - 1) * PAGE_SIZE, currentPage * PAGE_SIZE);
+      document.getElementById('vocabCount').innerText = `顯示中：${slice.length} 筆（篩選符合 ${total} / 總計 ${GLOSSARY_TERMS.length} 語）`;
+
+      const grid = document.getElementById('vocabGrid');
+      grid.innerHTML = slice.map((t, i) => {
+        const m = LEVEL_META[t[1]] || LEVEL_META.INDUSTRY;
+        const safeJP = t[2].replace(/'/g, "\\'");
+        const safeZH = t[4].replace(/'/g, "\\'");
+        return `
+          <div class="term-card" style="background:#fff; border:1px solid var(--border); padding:0.9rem; border-radius:8px; border-left:4px solid ${m.border};">
+            <div style="display:flex; justify-content:space-between; align-items:flex-start; gap:0.4rem; margin-bottom:0.2rem;">
+              <span class="td-jp" style="font-size:1rem;">${t[2]}</span>
+              <div style="display:flex; gap:4px; align-items:center; flex-shrink:0;">
+                <button class="audio-btn" onclick="speakText('${safeJP}','ja-JP')" title="日文發音">🔊JP</button>
+                <button class="audio-btn" onclick="speakText('${safeZH}','zh-TW')" title="中文發音">🔊ZH</button>
+                <span class="badge ${m.cls}">${m.label}</span>
+              </div>
+            </div>
+            <div class="td-kana">${t[3]}</div>
+            <div class="td-zh">${t[4]}</div>
+            <div class="td-pinyin">${t[5]} — ${t[6]}</div>
+          </div>
+        `;
+      }).join('');
+
+      const pager = document.getElementById('vocabPager');
+      let pagerHtml = `<label style="font-size:0.8rem;cursor:pointer;margin-right:8px;"><input type="checkbox" id="showAllCheck" ${showAll ? 'checked' : ''} onchange="renderVocab(false)"> 一次顯示全部</label>`;
+      if (!showAll && totalPages > 1) {
+        pagerHtml += `<button class="audio-btn" onclick="goPage(1)">⏮</button>`;
+        pagerHtml += `<button class="audio-btn" onclick="goPage(${Math.max(1, currentPage - 1)})">◀</button>`;
+        pagerHtml += `<span style="font-size:0.82rem;font-weight:700;">第 ${currentPage} / ${totalPages} 頁</span>`;
+        pagerHtml += `<button class="audio-btn" onclick="goPage(${Math.min(totalPages, currentPage + 1)})">▶</button>`;
+        pagerHtml += `<button class="audio-btn" onclick="goPage(${totalPages})">⏭</button>`;
+      }
+      pager.innerHTML = pagerHtml;
+    }
+
+    function goPage(p) {
+      currentPage = p;
+      renderVocab(false);
+    }
+
+    function exportGlossaryCSV() {
+      const rows = [['分類', '層級', '日文', '日文讀音', '繁體中文', '漢語拼音', '工程說明']];
+      getFilteredTerms().forEach(t => rows.push(t));
+      const csv = '\uFEFF' + rows.map(r => r.map(c => '"' + String(c).replace(/"/g, '""') + '"').join(',')).join('\n');
+      const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'tunnel_electrical_taipower_500_terms.csv';
+      a.click();
+      URL.revokeObjectURL(url);
+    }
+
+    /* === Robust TTS Engine (Chrome/Edge + Sandbox Safe) === */
+    let cachedVoices = [];
+    let ttsKeepAlive = null;
+
+    function populateVoiceDropdowns() {
+      if (!('speechSynthesis' in window)) return;
+      cachedVoices = window.speechSynthesis.getVoices() || [];
+      const jpSel = document.getElementById('voiceSelectJP');
+      const zhSel = document.getElementById('voiceSelectZH');
+      if (!jpSel || !zhSel) return;
+
+      const jpVoices = cachedVoices.filter(v => v.lang.toLowerCase().startsWith('ja'));
+      const zhVoices = cachedVoices.filter(v => v.lang.toLowerCase().startsWith('zh'));
+
+      jpSel.innerHTML = jpVoices.length
+        ? jpVoices.map(v => `<option value="${v.name}" ${v.name.includes('Nanami') ? 'selected' : ''}>🇯🇵 ${v.name}</option>`).join('')
+        : '<option value="">🇯🇵 系統預設日語</option>';
+
+      zhSel.innerHTML = zhVoices.length
+        ? zhVoices.map(v => `<option value="${v.name}" ${v.name.includes('HsiaoChen') ? 'selected' : ''}>🇹🇼 ${v.name}</option>`).join('')
+        : '<option value="">🇹🇼 系統預設國語</option>';
+
+      if (cachedVoices.length === 0) {
+        document.getElementById('ttsStatus').innerHTML = '⚠️ 目前預覽視窗未偵測到系統語音庫（常見於沙盒預覽），請點擊右上角 <strong>下載 HTML</strong> 後以 Chrome / Edge 本機開啟即可發音！';
+      }
+    }
+
+    if ('speechSynthesis' in window) {
+      populateVoiceDropdowns();
+      window.speechSynthesis.onvoiceschanged = populateVoiceDropdowns;
+      setTimeout(populateVoiceDropdowns, 600);
+    }
+
+    function playTestBeep() {
+      try {
+        const ctx = new (window.AudioContext || window.webkitAudioContext)();
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(880, ctx.currentTime);
+        gain.gain.setValueAtTime(0.15, ctx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.35);
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+        osc.start();
+        osc.stop(ctx.currentTime + 0.35);
+        document.getElementById('ttsStatus').innerText = '🔔 提示音已播放！若聽得到嗶聲但語音無聲，代表瀏覽器或預覽框封鎖了系統 TTS，請下載檔案本機開啟。';
+      } catch (e) {
+        document.getElementById('ttsStatus').innerText = '❌ 音訊裝置遭瀏覽器阻擋: ' + e.message;
+      }
+    }
+
+    function speakText(text, forceLang) {
+      if (!('speechSynthesis' in window)) {
+        alert('此瀏覽器不支援 Web Speech API 語音合成功能');
+        return;
+      }
+      const synth = window.speechSynthesis;
+      synth.cancel();
+      if (ttsKeepAlive) clearInterval(ttsKeepAlive);
+
+      const lang = forceLang || (/[\u3040-\u30ff]/.test(text) ? 'ja-JP' : 'zh-TW');
+      const utter = new SpeechSynthesisUtterance(text);
+      utter.lang = lang;
+      utter.volume = 1.0;
+      utter.rate = parseFloat(document.getElementById('ttsRate').value || '0.95');
+
+      const selId = lang.startsWith('ja') ? 'voiceSelectJP' : 'voiceSelectZH';
+      const chosenName = document.getElementById(selId)?.value;
+      let chosenVoice = cachedVoices.find(v => v.name === chosenName);
+      if (!chosenVoice && cachedVoices.length) {
+        chosenVoice = cachedVoices.find(v => v.lang.toLowerCase().startsWith(lang.slice(0,2)));
+      }
+      if (chosenVoice) utter.voice = chosenVoice;
+
+      utter.onstart = () => {
+        document.getElementById('ttsStatus').innerText = `🔊 正在朗讀 (${lang}): ${chosenVoice ? chosenVoice.name : '系統預設'}`;
+      };
+      utter.onend = () => {
+        if (ttsKeepAlive) clearInterval(ttsKeepAlive);
+        document.getElementById('ttsStatus').innerText = '✅ 朗讀完成｜支援「畫詞發音」';
+      };
+      utter.onerror = (e) => {
+        if (ttsKeepAlive) clearInterval(ttsKeepAlive);
+        document.getElementById('ttsStatus').innerHTML = `⚠️ 語音播放受阻 (${e.error})：請下載 HTML 後以本機 Chrome / Edge 開啟即可使用 Microsoft 自然語音。`;
+      };
+
+      // Fix Chrome cancel() + immediate speak() bug & 15s pause bug
+      setTimeout(() => {
+        synth.speak(utter);
+        synth.resume();
+        ttsKeepAlive = setInterval(() => {
+          if (synth.speaking && !synth.paused) synth.resume();
+          else if (!synth.speaking) clearInterval(ttsKeepAlive);
+        }, 5000);
+      }, 70);
+    }
+
+    function pauseResumeTTS() {
+      if (!('speechSynthesis' in window)) return;
+      if (window.speechSynthesis.paused) window.speechSynthesis.resume();
+      else if (window.speechSynthesis.speaking) window.speechSynthesis.pause();
+    }
+
+    function stopTTS() {
+      if ('speechSynthesis' in window) {
+        window.speechSynthesis.cancel();
+        if (ttsKeepAlive) clearInterval(ttsKeepAlive);
+        document.getElementById('ttsStatus').innerText = '⏹️ 已停止朗讀';
+      }
+    }
+
+    /* Selection Read-Aloud (畫詞發音) */
+    document.addEventListener('mouseup', () => {
+      const sel = window.getSelection();
+      const text = sel ? sel.toString().trim() : '';
+      const btn = document.getElementById('selectionSpeakBtn');
+      if (text.length > 1 && text.length < 300) {
+        const range = sel.getRangeAt(0);
+        const rect = range.getBoundingClientRect();
+        btn.style.top = Math.max(10, rect.top - 36) + 'px';
+        btn.style.left = Math.min(window.innerWidth - 160, Math.max(10, rect.left)) + 'px';
+        btn.style.display = 'block';
+        btn.dataset.text = text;
+      } else {
+        btn.style.display = 'none';
+      }
+    });
+
+    function speakSelectedText() {
+      const btn = document.getElementById('selectionSpeakBtn');
+      if (btn.dataset.text) speakText(btn.dataset.text);
+      btn.style.display = 'none';
+    }
+
+    function checkAnswer(qId, selectedIdx, isCorrect, explanation) {
+      const qCard = document.getElementById(qId);
+      const fb = document.getElementById(qId + '-fb');
+      const buttons = qCard.querySelectorAll('.quiz-opt-btn');
+      buttons.forEach((btn, idx) => {
+        btn.disabled = true;
+        if (idx + 1 === selectedIdx) btn.classList.add(isCorrect ? 'correct' : 'wrong');
+      });
+      fb.className = 'quiz-feedback show ' + (isCorrect ? 'feedback-correct' : 'feedback-wrong');
+      fb.innerHTML = (isCorrect ? '<strong>✅ 正解！</strong> ' : '<strong>❌ 不正解。</strong> ') + explanation;
+    }
+
+    // Initial render of 500-term glossary
+    document.addEventListener('DOMContentLoaded', () => renderVocab(true));
+  </script>
+</body>
+</html>
